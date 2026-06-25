@@ -48,7 +48,7 @@ export default function Navbar() {
 
         {/* ── LOGO ── */}
         <Link href="/" className="flex items-center gap-2 group">
-          <span className="font-display text-xl font-semibold text-brand-mist group-hover:text-brand-accent transition-colors duration-200">
+          <span className="font-display text-lg font-semibold text-brand-mist group-hover:text-brand-accent transition-colors duration-200">
             {SITE_CONFIG.shortName}
             <span className="text-brand-accent">.</span>
           </span>
