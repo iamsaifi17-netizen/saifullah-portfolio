@@ -1,8 +1,4 @@
 // pages/portfolio.js
-// ── PORTFOLIO PAGE ───────────────────────────────────────────────────────────
-// ✏️ Add new projects in lib/config.js → SITE_CONFIG.portfolio
-// ✏️ Add project images to /public/images/portfolio/
-
 import { useState } from 'react';
 import { NextSeo } from 'next-seo';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -12,7 +8,6 @@ import SectionHeading from '../components/ui/SectionHeading';
 import CTABanner from '../components/sections/CTABanner';
 import { SITE_CONFIG } from '../lib/config';
 
-// Get unique categories
 const allCategories = ['All', ...new Set(SITE_CONFIG.portfolio.map(p => p.category))];
 
 function ProjectCard({ project, index }) {
@@ -23,11 +18,19 @@ function ProjectCard({ project, index }) {
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, scale: 0.95 }}
       transition={{ duration: 0.4, delay: index * 0.06 }}
-      className="group bg-brand-steel border border-brand-rule hover:border-brand-accent/40 transition-all duration-300 hover:-translate-y-1 overflow-hidden"
+      className="group bg-brand-steel border border-brand-rule hover:border-brand-accent/40 transition-all duration-300 hover:-translate-y-1 overflow-hidden flex flex-col"
     >
       {/* Image area */}
-      <div className="h-52 bg-brand-ink relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-brand-accent/8 to-transparent" />
+      <div className="h-52 bg-brand-ink relative overflow-hidden flex-shrink-0">
+        {project.image ? (
+          <img
+            src={project.image}
+            alt={project.title}
+            className="w-full h-full object-cover object-top opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500"
+            onError={(e) => { e.target.style.display = 'none'; }}
+          />
+        ) : null}
+        <div className="absolute inset-0 bg-gradient-to-t from-brand-ink/80 to-transparent" />
         <div className="absolute inset-0 flex items-center justify-center">
           <span className="font-display text-7xl font-bold text-brand-accent/10">
             {String(project.id).padStart(2, '0')}
@@ -39,10 +42,17 @@ function ProjectCard({ project, index }) {
             {project.category}
           </span>
         </div>
+        {/* Live badge */}
+        {project.liveUrl && (
+          <div className="absolute top-4 right-4 bg-green-500/20 border border-green-500/40 px-2.5 py-1 flex items-center gap-1.5">
+            <div className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
+            <span className="font-body text-[10px] text-green-400 font-semibold uppercase tracking-widest">Live</span>
+          </div>
+        )}
         {/* Tags */}
         <div className="absolute bottom-4 left-4 flex flex-wrap gap-1.5">
           {project.tags.map(tag => (
-            <span key={tag} className="bg-brand-ink/60 border border-brand-rule px-2 py-0.5 font-body text-[10px] text-brand-ghost">
+            <span key={tag} className="bg-brand-ink/70 border border-brand-rule px-2 py-0.5 font-body text-[10px] text-brand-ghost">
               {tag}
             </span>
           ))}
@@ -50,17 +60,17 @@ function ProjectCard({ project, index }) {
       </div>
 
       {/* Content */}
-      <div className="p-6">
+      <div className="p-6 flex flex-col flex-grow">
         <p className="font-body text-xs text-brand-ghost mb-2">{project.client}</p>
         <h3 className="font-display text-xl text-brand-mist mb-3 group-hover:text-brand-accent transition-colors">
           {project.title}
         </h3>
-        <p className="text-brand-ghost text-sm leading-relaxed mb-5 line-clamp-3">
+        <p className="text-brand-ghost text-sm leading-relaxed mb-5 flex-grow">
           {project.excerpt}
         </p>
 
         {/* Metrics */}
-        <div className="flex flex-wrap gap-4 pt-4 border-t border-brand-rule">
+        <div className="flex flex-wrap gap-4 pt-4 border-t border-brand-rule mb-4">
           {Object.entries(project.metrics).map(([key, val]) => (
             <div key={key}>
               <p className="font-display text-lg font-semibold text-brand-accent">{val}</p>
@@ -68,6 +78,18 @@ function ProjectCard({ project, index }) {
             </div>
           ))}
         </div>
+
+        {/* Visit Website button — only shows if liveUrl exists */}
+        {project.liveUrl && (
+          <a
+            href={project.liveUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn-primary text-xs py-2.5 justify-center w-full"
+          >
+            Visit Live Website →
+          </a>
+        )}
       </div>
     </motion.article>
   );
@@ -84,11 +106,10 @@ export default function PortfolioPage() {
     <>
       <NextSeo
         title={`Portfolio | ${SITE_CONFIG.name}`}
-        description="Real results from real projects — copywriting, LinkedIn content, email marketing, and social media campaigns."
+        description="Real websites and writing projects by Muhammad Saifullah — web developer and copywriter from Pakistan."
       />
       <Layout>
-
-        {/* ── PAGE HERO ── */}
+        {/* PAGE HERO */}
         <section className="pt-32 pb-20 bg-brand-ink relative overflow-hidden">
           <div className="absolute top-0 right-0 w-96 h-96 opacity-15"
             style={{ background: 'radial-gradient(circle, #C8A96E 0%, transparent 70%)' }}
@@ -97,16 +118,16 @@ export default function PortfolioPage() {
             <AnimatedSection>
               <p className="eyebrow mb-3">Portfolio</p>
               <h1 className="font-display text-display-lg text-brand-mist">
-                Work That <span className="text-gold-shimmer">Speaks Louder</span>
+                Real Work. <span className="text-gold-shimmer">Real Results.</span>
               </h1>
               <p className="mt-4 text-brand-ghost text-lg max-w-2xl leading-relaxed">
-                A curated selection of projects spanning copywriting, LinkedIn content, email marketing, and social media. Every number is real.
+                Live websites I have built and writing samples I have created. Click "Visit Live Website" to see my web development work in action.
               </p>
             </AnimatedSection>
           </div>
         </section>
 
-        {/* ── PORTFOLIO SECTION ── */}
+        {/* PORTFOLIO SECTION */}
         <section className="section-pad bg-brand-slate">
           <div className="section-wrapper">
 
@@ -136,10 +157,9 @@ export default function PortfolioPage() {
               </AnimatePresence>
             </motion.div>
 
-            {/* Note */}
             <AnimatedSection className="mt-16 text-center">
               <p className="text-brand-ghost text-sm">
-                More case studies available on request.{' '}
+                More projects available on request.{' '}
                 <a href="/contact" className="text-brand-accent hover:underline">
                   Get in touch →
                 </a>
