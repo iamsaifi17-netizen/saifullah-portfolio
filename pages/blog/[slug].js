@@ -1,91 +1,199 @@
 // pages/blog/[slug].js
 // ── BLOG POST TEMPLATE ────────────────────────────────────────────────────────
-// This dynamically renders each blog post from SITE_CONFIG.blogPosts.
-// ✏️ To write a full article:
-//    1. Add the post metadata to SITE_CONFIG.blogPosts in lib/config.js
-//    2. Add the full content in the `postContent` object below
 
-import { NextSeo } from 'next-seo';
+import { NextSeo, ArticleJsonLd } from 'next-seo';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
 import Layout from '../../components/layout/Layout';
 import AnimatedSection from '../../components/ui/AnimatedSection';
 import { SITE_CONFIG } from '../../lib/config';
 
-// ✏️ ADD YOUR FULL ARTICLE CONTENT HERE
-// Key = slug from SITE_CONFIG.blogPosts
+// ── FULL ARTICLE CONTENT ──────────────────────────────────────────────────────
+// ✏️ To add a new article: add slug to SITE_CONFIG.blogPosts in lib/config.js
+//    then add its full HTML content here below.
+
 const postContent = {
-  'linkedin-content-strategy-2025': `
-    <p>Most LinkedIn posts disappear into the void. They get written, published, forgotten. No comments, no connections, no clients. Just another status update in an endless feed.</p>
 
-    <p>I've been studying what separates LinkedIn posts that generate inbound leads from those that generate nothing. After analyzing hundreds of posts and running campaigns for multiple clients, I've found a repeatable framework that works — consistently.</p>
+  'website-copy-that-converts': `
+    <p class="lead">Most business websites look fine. They just don't sell.</p>
 
-    <h2>The Problem With Most LinkedIn Content</h2>
+    <p>You've probably seen it yourself — a clean design, nice colors, a logo in the corner... and copy that says absolutely nothing. "We are a leading provider of innovative solutions." Cool. What do you actually do?</p>
 
-    <p>People write about themselves. "Excited to announce..." "I'm proud to share..." "Today I learned..." All ego, no value. The reader asks: why should I care?</p>
+    <p>Here's the thing: design gets people to stay for three seconds. Copy is what makes them stay for three minutes, pick up the phone, or fill out your contact form. If your website isn't converting visitors into customers, the words are usually the problem — not the layout.</p>
 
-    <p>High-performing LinkedIn content solves a problem, challenges a belief, or tells a story that makes the reader feel something. Everything else is noise.</p>
+    <h2>1. Lead With the Problem, Not the Company</h2>
 
-    <h2>The Framework: P.A.C.E</h2>
+    <p>Nobody lands on your homepage caring about your "20 years of combined experience." They care about their own problem. Start there.</p>
 
-    <p><strong>P — Problem:</strong> Open with a problem your audience recognizes instantly. Make them feel seen.</p>
-    <p><strong>A — Agitate:</strong> Dig into why it hurts. Don't rush to the solution.</p>
-    <p><strong>C — Content:</strong> Deliver the value. The insight, the framework, the lesson.</p>
-    <p><strong>E — End with a hook:</strong> Close with a question, a bold statement, or a soft call to action.</p>
+    <p>Instead of:</p>
+    <blockquote>"ABC Traders has been serving the industry since 2010 with a wide range of solutions."</blockquote>
 
-    <h2>The 12 Leads in 30 Days</h2>
+    <p>Try:</p>
+    <blockquote>"Struggling to find reliable suppliers who actually deliver on time? That's exactly what we fix."</blockquote>
 
-    <p>I ran this framework for a SaaS founder posting 3x per week. Within 30 days, his profile views jumped 340%. More importantly, 12 people reached out directly asking to work with him — without a single paid ad.</p>
+    <p>Same information, completely different effect. One talks about you. The other talks about them.</p>
 
-    <p>The secret? Consistency + specificity. Generic content attracts no one. Specific insights attract exactly the right people.</p>
+    <h2>2. Cut the Buzzwords</h2>
 
-    <p>Want me to apply this to your LinkedIn profile? <a href="/contact" style="color: #C8A96E;">Get in touch here.</a></p>
+    <p>"Synergy," "innovative," "cutting-edge," "world-class" — these words used to mean something. Now they mean nothing, because every website uses them. Readers skip right over them without absorbing a single idea.</p>
+
+    <p>Replace vague claims with specific ones:</p>
+    <ul>
+      <li><strong>"Fast website"</strong> becomes <strong>"Your site loads in under 2 seconds."</strong></li>
+      <li><strong>"Affordable pricing"</strong> becomes <strong>"Packages starting at $80."</strong></li>
+      <li><strong>"Experienced team"</strong> becomes <strong>"Built 10+ websites for real clients."</strong></li>
+    </ul>
+
+    <p>Specifics feel real. Buzzwords feel like filler.</p>
+
+    <h2>3. Write Like You Talk</h2>
+
+    <p>Formal, stiff copy creates distance. Read your homepage out loud. If it sounds like something you'd never actually say to a client sitting across from you, rewrite it.</p>
+
+    <p>Short sentences work better than long ones. Simple words beat fancy ones. You're not writing a thesis — you're having a conversation with someone deciding whether to trust you with their money.</p>
+
+    <h2>4. One Page, One Job</h2>
+
+    <p>Every page on your site should push the visitor toward exactly one action — book a call, request a quote, send a message. When a page tries to do five things at once, it usually does none of them well.</p>
+
+    <p>Pick the single most important action for that page, and make sure your copy, your button, and your layout all point toward it.</p>
+
+    <h2>5. End With a Clear, Low-Pressure CTA</h2>
+
+    <p>"Contact us for more information" is weak. It doesn't tell the reader what happens next or why they should bother.</p>
+
+    <p>Try something more direct:</p>
+    <blockquote>"Tell me about your project — I'll reply within 24 hours with a timeline and a fair price."</blockquote>
+
+    <p>It's specific, it sets expectations, and it removes the guesswork.</p>
+
+    <h2>The Real Takeaway</h2>
+
+    <p>Good website copy isn't about sounding impressive. It's about being clear, specific, and human — so the right visitor reads three lines and thinks, "okay, this person gets it." That's the moment a visitor turns into a lead.</p>
+
+    <p>If your website copy still sounds like a brochure from 2015, it might be time for a rewrite.</p>
   `,
 
-  'ai-copywriting-human-touch': `
-    <p>Every copywriter is worried about AI. I was too — until I figured out how to use it as a superpower instead of a threat.</p>
+  'signs-website-costing-clients': `
+    <p class="lead">A website is supposed to be your best salesperson — working 24/7, never taking a day off. But a poorly built one can quietly do the opposite: chase potential clients away before they even reach out.</p>
 
-    <p>Here's my honest take: AI won't replace great copywriters. But copywriters who use AI intelligently will replace those who don't. The question is: how do you use it without losing your voice, your quality, or your value?</p>
+    <p>If you've had a website for a while but leads have slowed down or never really picked up, one of these five problems is likely the culprit.</p>
 
-    <h2>What AI Is Good At</h2>
+    <h2>1. It Loads Too Slowly</h2>
 
-    <p>AI is exceptional at research aggregation, generating multiple angle options, creating first drafts at speed, and suggesting structural frameworks. Use it for speed and breadth.</p>
+    <p>Every second of load time costs you visitors. Most people won't wait more than a few seconds for a page to appear before they hit the back button — especially on mobile, where a big chunk of your traffic comes from.</p>
 
-    <h2>What AI Is Bad At</h2>
+    <p>Slow websites are usually the result of:</p>
+    <ul>
+      <li>Unoptimized images that are too large</li>
+      <li>Outdated or cheap hosting</li>
+      <li>Bloated page builders with too much code</li>
+    </ul>
 
-    <p>AI doesn't know your specific client. It can't feel the tension in a room, understand cultural nuance, or write the kind of sentence that makes someone stop scrolling and read again. That's the human layer — and it's irreplaceable.</p>
+    <p>A fast, modern framework built for performance (like Next.js) solves this at the foundation, not with band-aid fixes.</p>
 
-    <h2>My Exact Workflow</h2>
+    <h2>2. It Doesn't Work Properly on Phones</h2>
 
-    <p>I use AI to generate 3-5 angle options for any piece. Then I select the strongest angle, rewrite from scratch in my own voice, and run a final human edit for tone, rhythm, and clarity. The result is content that's fast to produce and genuinely excellent to read.</p>
+    <p>If your site looks great on a laptop but breaks, overlaps, or becomes hard to tap on a phone, you're losing the majority of your visitors. Mobile traffic isn't a "nice to have" anymore — for most small businesses, it's the majority.</p>
+
+    <p>A properly responsive site should feel just as smooth on a phone as it does on a desktop, without any pinching, zooming, or awkward scrolling.</p>
+
+    <h2>3. There's No Clear Way to Contact You</h2>
+
+    <p>This sounds basic, but it happens constantly. Visitors get interested, look for a way to reach out, and find... nothing obvious. No visible phone number, no WhatsApp button, no simple contact form above the fold.</p>
+
+    <p>Make it stupidly easy to get in touch. A visible "Hire Me" or "Get a Quote" button, a WhatsApp link, and a short contact form should be within one click from anywhere on the site.</p>
+
+    <h2>4. It Looks Outdated</h2>
+
+    <p>Fair or not, people judge trustworthiness by design. A site with old fonts, clashing colors, or a layout that looks like it's from a decade ago quietly tells visitors, "this business might not be active anymore" — even if that's not true.</p>
+
+    <p>A clean, modern design signals that you're active, professional, and worth the investment.</p>
+
+    <h2>5. There's No Real Content — Just a Homepage</h2>
+
+    <p>A single page with a logo, a paragraph, and a phone number doesn't give people a reason to trust you or stay. Visitors want to see your work, understand exactly what you offer, and hear what past clients say about you.</p>
+
+    <p>A proper site needs, at minimum:</p>
+    <ul>
+      <li>A clear services or portfolio section</li>
+      <li>Social proof — testimonials and project examples</li>
+      <li>A simple way to take the next step</li>
+    </ul>
+
+    <h2>The Fix</h2>
+
+    <p>None of these problems require starting from zero. Most can be fixed with a focused rebuild — same brand, same voice, but built on a modern, fast, mobile-first foundation that actually turns visitors into inquiries.</p>
+
+    <p>If any of the five points above sound familiar, your website isn't broken beyond repair — it's just overdue for an update.</p>
   `,
 
-  'product-descriptions-that-sell': `
-    <p>Your product description is your silent salesperson. When a customer lands on your product page, there's no one there to answer their questions, handle their objections, or close the sale. Your words have to do all of that — alone.</p>
+  'linkedin-content-strategy-freelancers': `
+    <p class="lead">Most freelancers avoid LinkedIn for one honest reason: it feels awkward to talk about yourself. Posting "excited to announce I finished a new project!" every few weeks doesn't feel natural, and it rarely brings in clients anyway.</p>
 
-    <p>Most product descriptions fail because they describe. Great product descriptions sell.</p>
+    <p>The good news — you don't need to be loud, salesy, or post every day to get results from LinkedIn. You need a small, consistent system. Here's one that actually works.</p>
 
-    <h2>Formula 1: Features → Benefits → Feeling</h2>
+    <h2>Stop Posting Announcements. Start Posting Lessons.</h2>
 
-    <p>Don't just list what it does — tell them what it means for their life. "Noise-cancelling headphones" becomes "Your own personal silence, wherever you go."</p>
+    <p>Nobody scrolls LinkedIn hoping to see your achievements. They scroll hoping to learn something or be entertained for thirty seconds. Instead of announcing what you did, share what you learned while doing it.</p>
 
-    <h2>Formula 2: The Before/After Bridge</h2>
+    <p>Compare these two:</p>
+    <blockquote>"Just delivered a new website for a client! Grateful for the opportunity."</blockquote>
+    <blockquote>"A client asked me why their old website wasn't bringing in leads. Here's the exact thing that was wrong with it — and it's probably wrong with yours too."</blockquote>
 
-    <p>Paint the pain state, then reveal the product as the solution. Make the gap feel real before you close it.</p>
+    <p>The second one gets read. The first one gets scrolled past.</p>
 
-    <h2>Formula 3: The Specificity Rule</h2>
+    <h2>Use the 3-Bucket System</h2>
 
-    <p>Specific details build credibility. "Lasts all day" is weak. "11.5 hours of battery life, tested over 6 months" is powerful.</p>
+    <p>Instead of guessing what to post, rotate between three simple content buckets:</p>
 
-    <h2>Formula 4: Sensory Language</h2>
+    <h3>1. Problem + Fix</h3>
+    <p>Describe a common problem your ideal client faces, then explain how you'd solve it. This shows expertise without sounding like an ad.</p>
 
-    <p>Make them feel, smell, taste, or hear the product. The more senses you engage, the more real it becomes in their imagination — and the more likely they are to buy.</p>
+    <h3>2. Behind the Scenes</h3>
+    <p>Show your actual process. A quick before/after, a screenshot of your workflow, or a short story about a challenge on a recent project. People trust what they can see.</p>
 
-    <h2>Formula 5: The Risk Reversal Close</h2>
+    <h3>3. Opinion</h3>
+    <p>"Most businesses don't need a mobile app — they need a website that actually works" is more interesting than a generic tip, and it starts conversations in the comments.</p>
 
-    <p>End with something that removes fear. A guarantee, a return policy, a social proof stat. Eliminate the last reason not to buy.</p>
+    <p>Rotate through these three, and you'll never run out of ideas.</p>
+
+    <h2>Write the First Line Like It's an Ad Headline</h2>
+
+    <p>On LinkedIn, only the first one or two lines show before "see more." That first line decides whether anyone reads the rest. Skip the throat-clearing and go straight into something specific or slightly surprising.</p>
+
+    <ul>
+      <li><strong>Weak:</strong> "I wanted to share some thoughts on websites today."</li>
+      <li><strong>Strong:</strong> "Your website is probably losing you clients. Here's why."</li>
+    </ul>
+
+    <h2>Comments Matter More Than Most People Think</h2>
+
+    <p>You don't need thousands of followers to get clients from LinkedIn. You need to be visible in the right rooms. Commenting thoughtfully on posts from people in your target industry — actual insight, not just "Great post!" — puts your name in front of potential clients without ever posting yourself.</p>
+
+    <h2>Consistency Beats Frequency</h2>
+
+    <p>Two well-written posts a week, every week, will outperform seven rushed ones followed by a month of silence. Pick a rhythm you can actually keep — even once a week is enough if the content is genuinely useful.</p>
+
+    <h2>The Bottom Line</h2>
+
+    <p>LinkedIn isn't about performing confidence or bragging about wins. It's about showing, consistently, that you understand your client's problems better than the next freelancer does. Do that quietly and steadily, and the clients start coming to you instead of the other way around.</p>
   `,
 };
+
+// ── ARTICLE STYLES ────────────────────────────────────────────────────────────
+const articleStyles = `
+  .article-body p { color: #8B97A8; font-size: 1.0625rem; line-height: 1.85; margin-bottom: 1.4rem; }
+  .article-body p.lead { color: #E8EDF4; font-size: 1.2rem; line-height: 1.7; font-style: italic; border-left: 3px solid #C8A96E; padding-left: 1.25rem; margin-bottom: 2rem; }
+  .article-body h2 { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 1.75rem; color: #E8EDF4; margin-top: 2.5rem; margin-bottom: 1rem; line-height: 1.2; }
+  .article-body h3 { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 1.3rem; color: #C8A96E; margin-top: 1.75rem; margin-bottom: 0.75rem; }
+  .article-body blockquote { background: #1A2332; border-left: 3px solid #C8A96E; padding: 1rem 1.5rem; margin: 1.75rem 0; color: #E8EDF4; font-style: italic; font-size: 1.05rem; }
+  .article-body ul, .article-body ol { color: #8B97A8; padding-left: 1.5rem; margin-bottom: 1.4rem; }
+  .article-body li { margin-bottom: 0.5rem; line-height: 1.7; }
+  .article-body ul li::marker { color: #C8A96E; }
+  .article-body ol li::marker { color: #C8A96E; font-weight: 600; }
+  .article-body strong { color: #E8EDF4; font-weight: 600; }
+  .article-body a { color: #C8A96E; text-decoration: underline; }
+`;
 
 export async function getStaticPaths() {
   const paths = SITE_CONFIG.blogPosts.map(post => ({
@@ -97,46 +205,84 @@ export async function getStaticPaths() {
 export async function getStaticProps({ params }) {
   const post = SITE_CONFIG.blogPosts.find(p => p.slug === params.slug);
   const content = postContent[params.slug] || '<p>Full article coming soon.</p>';
+  const allPosts = SITE_CONFIG.blogPosts;
+  const currentIndex = allPosts.findIndex(p => p.slug === params.slug);
+  const prevPost = currentIndex > 0 ? allPosts[currentIndex - 1] : null;
+  const nextPost = currentIndex < allPosts.length - 1 ? allPosts[currentIndex + 1] : null;
 
-  return {
-    props: { post, content },
-  };
+  return { props: { post, content, prevPost, nextPost } };
 }
 
-export default function BlogPost({ post, content }) {
-  const relatedPosts = SITE_CONFIG.blogPosts.filter(p => p.slug !== post.slug).slice(0, 2);
+export default function BlogPost({ post, content, prevPost, nextPost }) {
+  const canonicalUrl = `${SITE_CONFIG.seo.siteUrl}/blog/${post.slug}`;
 
   return (
     <>
       <NextSeo
         title={`${post.title} | ${SITE_CONFIG.name}`}
         description={post.excerpt}
+        canonical={canonicalUrl}
+        openGraph={{
+          type:            'article',
+          url:             canonicalUrl,
+          title:           post.title,
+          description:     post.excerpt,
+          publishedTime:   post.date,
+          authors:         [SITE_CONFIG.name],
+          tags:            [post.category],
+        }}
       />
+
+      {/* BlogPosting Schema */}
+      <ArticleJsonLd
+        type="BlogPosting"
+        url={canonicalUrl}
+        title={post.title}
+        images={[`${SITE_CONFIG.seo.siteUrl}${post.image}`]}
+        datePublished={post.date}
+        dateModified={post.date}
+        authorName={SITE_CONFIG.name}
+        description={post.excerpt}
+      />
+
+      <style dangerouslySetInnerHTML={{ __html: articleStyles }} />
+
       <Layout>
 
-        {/* ── ARTICLE HEADER ── */}
+        {/* ── ARTICLE HERO ── */}
         <section className="pt-32 pb-16 bg-brand-ink relative overflow-hidden">
-          <div className="absolute top-0 right-0 w-96 h-96 opacity-10"
-            style={{ background: 'radial-gradient(circle, #C8A96E 0%, transparent 70%)' }}
+          <div className="absolute inset-0 opacity-10"
+            style={{ background: 'radial-gradient(circle at 70% 30%, #C8A96E 0%, transparent 60%)' }}
           />
-          <div className="section-wrapper relative z-10 max-w-3xl">
+          <div className="section-wrapper max-w-3xl relative z-10">
             <AnimatedSection>
+              {/* Breadcrumb */}
               <div className="flex items-center gap-3 mb-6">
-                <Link href="/blog" className="btn-ghost text-xs">
-                  ← Back to Blog
-                </Link>
+                <Link href="/blog" className="btn-ghost text-xs">← Back to Blog</Link>
                 <span className="text-brand-rule">·</span>
-                <span className="eyebrow">{post.category}</span>
+                <span className="eyebrow text-[10px]">{post.category}</span>
               </div>
-              <h1 className="font-display text-display-md text-brand-mist mb-6">
+
+              {/* Title */}
+              <h1 className="font-display text-display-md text-brand-mist leading-tight mb-6">
                 {post.title}
               </h1>
-              <div className="flex items-center gap-4">
-                <span className="text-brand-ghost text-sm">{post.date}</span>
+
+              {/* Meta */}
+              <div className="flex flex-wrap items-center gap-4 pb-8 border-b border-brand-rule">
+                <div className="flex items-center gap-3">
+                  <div className="w-9 h-9 rounded-full bg-brand-steel border border-brand-accent/40 flex items-center justify-center">
+                    <span className="font-display text-sm text-brand-accent">M</span>
+                  </div>
+                  <div>
+                    <p className="font-body text-xs font-semibold text-brand-mist">{SITE_CONFIG.name}</p>
+                    <p className="font-body text-[11px] text-brand-ghost">Frontend Developer & Writer</p>
+                  </div>
+                </div>
+                <span className="text-brand-rule hidden sm:block">·</span>
+                <span className="text-brand-ghost text-xs">{post.date}</span>
                 <span className="text-brand-rule">·</span>
-                <span className="text-brand-ghost text-sm">{post.readTime}</span>
-                <span className="text-brand-rule">·</span>
-                <span className="text-brand-ghost text-sm">By {SITE_CONFIG.name}</span>
+                <span className="text-brand-ghost text-xs">{post.readTime}</span>
               </div>
             </AnimatedSection>
           </div>
@@ -146,69 +292,89 @@ export default function BlogPost({ post, content }) {
         <section className="py-16 bg-brand-slate">
           <div className="section-wrapper max-w-3xl">
             <AnimatedSection>
-              {/* Article content */}
-              {/* ✏️ Styles for article content — edit these classes to change typography */}
               <div
-                className="prose-article"
-                style={{
-                  color: '#8B97A8',
-                  fontSize: '17px',
-                  lineHeight: '1.8',
-                }}
+                className="article-body"
                 dangerouslySetInnerHTML={{ __html: content }}
               />
 
-              {/* Author bio */}
-              <div className="mt-16 pt-10 border-t border-brand-rule flex items-start gap-6">
-                <div className="w-14 h-14 rounded-full bg-brand-steel border border-brand-accent/30 flex items-center justify-center flex-shrink-0">
-                  <span className="font-display text-xl text-brand-accent">
-                    {SITE_CONFIG.name.charAt(0)}
-                  </span>
+              {/* Tags */}
+              <div className="flex flex-wrap gap-2 mt-12 pt-8 border-t border-brand-rule">
+                <span className="eyebrow">Category:</span>
+                <span className="border border-brand-accent/40 text-brand-accent text-xs px-3 py-1">
+                  {post.category}
+                </span>
+              </div>
+            </AnimatedSection>
+
+            {/* ── AUTHOR BIO ── */}
+            <AnimatedSection delay={100} className="mt-12">
+              <div className="bg-brand-steel border border-brand-rule p-6 flex items-start gap-5">
+                <div className="w-14 h-14 rounded-full bg-brand-ink border-2 border-brand-accent/40 flex items-center justify-center flex-shrink-0">
+                  <span className="font-display text-xl text-brand-accent">M</span>
                 </div>
                 <div>
-                  <p className="font-body font-semibold text-brand-mist text-sm">
-                    Written by {SITE_CONFIG.name}
-                  </p>
+                  <p className="eyebrow mb-1">About the Author</p>
+                  <p className="font-body font-semibold text-brand-mist text-sm">{SITE_CONFIG.name}</p>
                   <p className="text-brand-ghost text-xs mt-1 leading-relaxed">
-                    Freelance copywriter and LinkedIn content strategist. I help brands communicate with clarity and convert readers into clients.
+                    Frontend Web Developer & Web Designer from Pakistan. I build modern, responsive websites for businesses and personal brands, and write about web development, content strategy, and freelancing.
                   </p>
                   <div className="flex gap-4 mt-3">
-                    <a href={SITE_CONFIG.social.linkedin} target="_blank" rel="noopener noreferrer"
-                      className="text-brand-accent text-xs hover:underline">
-                      LinkedIn →
-                    </a>
-                    <Link href="/contact" className="text-brand-accent text-xs hover:underline">
-                      Hire Me →
-                    </Link>
+                    <a href={SITE_CONFIG.social.linkedin} target="_blank" rel="noopener noreferrer" className="text-brand-accent text-xs hover:underline">LinkedIn →</a>
+                    <Link href="/contact" className="text-brand-accent text-xs hover:underline">Hire Me →</Link>
                   </div>
                 </div>
               </div>
             </AnimatedSection>
+
+            {/* ── PREV / NEXT NAVIGATION ── */}
+            {(prevPost || nextPost) && (
+              <AnimatedSection delay={150} className="mt-10">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  {prevPost ? (
+                    <Link href={`/blog/${prevPost.slug}`} className="group block bg-brand-steel border border-brand-rule hover:border-brand-accent/40 p-5 transition-all duration-200">
+                      <p className="font-body text-xs text-brand-ghost uppercase tracking-widest mb-2">← Previous Article</p>
+                      <p className="font-display text-base text-brand-mist group-hover:text-brand-accent transition-colors leading-snug">
+                        {prevPost.title}
+                      </p>
+                    </Link>
+                  ) : <div />}
+
+                  {nextPost ? (
+                    <Link href={`/blog/${nextPost.slug}`} className="group block bg-brand-steel border border-brand-rule hover:border-brand-accent/40 p-5 transition-all duration-200 sm:text-right">
+                      <p className="font-body text-xs text-brand-ghost uppercase tracking-widest mb-2">Next Article →</p>
+                      <p className="font-display text-base text-brand-mist group-hover:text-brand-accent transition-colors leading-snug">
+                        {nextPost.title}
+                      </p>
+                    </Link>
+                  ) : <div />}
+                </div>
+              </AnimatedSection>
+            )}
           </div>
         </section>
 
-        {/* ── RELATED POSTS ── */}
-        {relatedPosts.length > 0 && (
-          <section className="section-pad bg-brand-ink">
-            <div className="section-wrapper">
-              <h2 className="font-display text-2xl text-brand-mist mb-8">More Articles</h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {relatedPosts.map(rPost => (
-                  <Link key={rPost.slug} href={`/blog/${rPost.slug}`} className="group block">
-                    <div className="bg-brand-steel border border-brand-rule group-hover:border-brand-accent/40 p-6 transition-all duration-200">
-                      <span className="eyebrow text-[10px]">{rPost.category}</span>
-                      <h3 className="font-display text-xl text-brand-mist mt-3 mb-2 group-hover:text-brand-accent transition-colors">
-                        {rPost.title}
+        {/* ── MORE ARTICLES ── */}
+        <section className="section-pad bg-brand-ink">
+          <div className="section-wrapper max-w-3xl">
+            <h2 className="font-display text-2xl text-brand-mist mb-8">More Articles</h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+              {SITE_CONFIG.blogPosts
+                .filter(p => p.slug !== post.slug)
+                .map(p => (
+                  <Link key={p.slug} href={`/blog/${p.slug}`} className="group block">
+                    <div className="bg-brand-steel border border-brand-rule group-hover:border-brand-accent/40 p-5 h-full transition-all duration-200">
+                      <span className="eyebrow text-[10px]">{p.category}</span>
+                      <h3 className="font-display text-lg text-brand-mist mt-2 mb-2 group-hover:text-brand-accent transition-colors leading-snug">
+                        {p.title}
                       </h3>
-                      <p className="text-brand-ghost text-sm line-clamp-2">{rPost.excerpt}</p>
-                      <p className="text-brand-accent text-xs mt-4 font-semibold">Read →</p>
+                      <p className="text-brand-ghost text-xs leading-relaxed line-clamp-2">{p.excerpt}</p>
+                      <p className="text-brand-accent text-xs font-semibold mt-4">Read Article →</p>
                     </div>
                   </Link>
                 ))}
-              </div>
             </div>
-          </section>
-        )}
+          </div>
+        </section>
 
       </Layout>
     </>
