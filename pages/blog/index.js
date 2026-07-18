@@ -11,7 +11,8 @@ import { SITE_CONFIG } from '../../lib/config';
 const categoryColors = {
   'Business':        'text-blue-400 border-blue-400/30 bg-blue-400/10',
   'Web Development': 'text-green-400 border-green-400/30 bg-green-400/10',
-  'AI Content':      'text-purple-400 border-purple-400/30 bg-purple-400/10',
+  'AI Content':      'text-orange-400 border-orange-400/30 bg-orange-400/10',
+  'Research':        'text-purple-400 border-purple-400/30 bg-purple-400/10',
 };
 
 function CategoryBadge({ category }) {

@@ -13,6 +13,31 @@ import { SITE_CONFIG } from '../../lib/config';
 
 const postContent = {
 
+  'ux-research-half-true': `
+    <p class="lead">If you've spent any time around product or design teams, you've heard the rules of thumb. Test with five users — that's enough. Run a heuristic evaluation before you bother real people. A/B test everything; the data doesn't lie. And now, increasingly: just simulate your users with AI and skip recruiting altogether.</p>
+    <p>Most of these rules aren't wrong, exactly. They're incomplete — repeated so often that the caveats have quietly fallen off. Here's what actually holds up, what doesn't, and what that means for how you should be researching your own product.</p>
+    <h2>The "Five Users" Rule Is Weaker Than You Think</h2>
+    <p>Jakob Nielsen's 2000 claim that testing with five users is "enough" is based on a real mathematical model. But in 2003, researcher Laura Faulkner resampled a real dataset of sixty participants — and found that depending on <em>which</em> five people you recruited, that sample uncovered anywhere from 55% to 99% of the problems. Same method, wildly different outcomes.</p>
+    <blockquote>That's not an argument against small qualitative studies. It's an argument against treating "five users" as a number with statistical guarantees behind it.</blockquote>
+    <h2>Expert Reviews Catch Different Problems Than Real Users Do</h2>
+    <p>Heuristic evaluation is popular because it's fast and doesn't require recruiting. But later studies found the overlap between expert-identified problems and real user struggles was underwhelming — roughly two-fifths of "expert" problems didn't bother real users, while evaluators missed a large share of what actually tripped people up.</p>
+    <h2>A/B Testing Is Rigorous in Theory and Sloppy in Practice</h2>
+    <p>Three failure modes show up constantly: <strong>peeking</strong> (stopping when you hit significance), <strong>multiple comparisons</strong> (one multivariate test found false-positive risk above 80%), and <strong>underpowering</strong> (not enough traffic to detect real effects). Statistical discipline — not better tools — is the fix.</p>
+    <h2>AI-Simulated Users Are Useful for Speed, Not a Substitute</h2>
+    <p>Controlled comparisons keep finding the same pattern: AI personas look plausible at first glance but can't exercise genuine consent or agency, lack the texture of real lived experience, and often miss the actual magnitude of real user responses.</p>
+    <blockquote>Let AI accelerate the mechanical parts — transcription, synthesis, drafting guides. Don't let it replace the parts where individual variation and genuine consent actually matter.</blockquote>
+    <h2>Accessibility Testing Needs All Three Layers</h2>
+    <ul>
+      <li><strong>Automated scanners</strong> — catch contrast failures, missing alt text, broken markup</li>
+      <li><strong>Manual expert review</strong> — catches reading order issues automated tools miss</li>
+      <li><strong>Real assistive-technology users</strong> — surfaces problems neither method above catches</li>
+    </ul>
+    <p>Skipping any one of these layers isn't a shortcut. It's a coverage gap.</p>
+    <h2>What This Means for How You Should Work</h2>
+    <p>Match the method to the actual stakes: five users for low-risk changes, larger samples and paired methods for high-stakes decisions, AI for synthesis not simulation, and all three accessibility layers before shipping to the public. The field's heuristics are directionally right — but "directionally right" and "a number you can cite without checking" are different things.</p>
+    <p><em>This is a condensed summary of a longer independent research report (July 2026). <a href="/blog/ux-research-half-true">Read the full research article with abstract, references, and complete analysis →</a></em></p>
+  `,
+
   'website-copy-that-converts': `
     <p class="lead">Most business websites look fine. They just don't sell.</p>
 
