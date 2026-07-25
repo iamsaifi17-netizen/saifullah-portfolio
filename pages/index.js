@@ -1,183 +1,138 @@
-// pages/index.js
-// ── HOME PAGE ─────────────────────────────────────────────────────────────────
-// This is the main landing page. Import and arrange sections as you like.
+// pages/index.js — Home page light theme
 
 import { NextSeo } from 'next-seo';
 import Link from 'next/link';
 import Layout from '../components/layout/Layout';
 import Hero from '../components/sections/Hero';
-import Services from '../components/sections/Services';
-import Testimonials from '../components/sections/Testimonials';
-import FAQ from '../components/sections/FAQ';
 import CTABanner from '../components/sections/CTABanner';
-import SectionHeading from '../components/ui/SectionHeading';
 import AnimatedSection from '../components/ui/AnimatedSection';
+import SectionHeading from '../components/ui/SectionHeading';
 import { SITE_CONFIG } from '../lib/config';
 
-// ── PORTFOLIO PREVIEW (home page only) ───────────────────────────────────────
-function PortfolioPreview() {
-  const featured = SITE_CONFIG.portfolio.slice(0, 3);
-
+function WhatsAppIcon() {
   return (
-    <section className="section-pad bg-brand-slate">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+    </svg>
+  );
+}
+
+// Services preview
+function ServicesPreview() {
+  return (
+    <section className="section-pad bg-white">
       <div className="section-wrapper">
-        <SectionHeading
-          eyebrow="Portfolio"
-          title="Selected Work"
-          subtitle="Real results from real projects. Every number you see came from actual client campaigns."
-        />
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {featured.map((project, i) => (
-            <AnimatedSection key={project.id} delay={i * 100}>
-              <div className="group bg-brand-steel border border-brand-rule hover:border-brand-accent/40 transition-all duration-300 hover:-translate-y-1 overflow-hidden">
-                {/* Image placeholder */}
-                <div className="h-48 bg-brand-ink flex items-center justify-center relative overflow-hidden">
-                  <div className="absolute inset-0 bg-gradient-to-br from-brand-accent/5 to-transparent" />
-                  <span className="font-display text-6xl text-brand-accent/20">{String(i + 1).padStart(2, '0')}</span>
-                  {/* Category badge */}
-                  <div className="absolute top-4 left-4 bg-brand-accent/20 border border-brand-accent/30 px-2.5 py-1">
-                    <span className="font-body text-[10px] text-brand-accent font-semibold uppercase tracking-widest">
-                      {project.category}
-                    </span>
-                  </div>
-                </div>
-
-                <div className="p-6">
-                  <h3 className="font-display text-xl text-brand-mist mb-2 group-hover:text-brand-accent transition-colors">
-                    {project.title}
-                  </h3>
-                  <p className="text-brand-ghost text-xs mb-4 leading-relaxed line-clamp-3">
-                    {project.excerpt}
-                  </p>
-
-                  {/* Metrics */}
-                  <div className="flex flex-wrap gap-3 pt-4 border-t border-brand-rule">
-                    {Object.entries(project.metrics).map(([key, val]) => (
-                      <div key={key} className="text-center">
-                        <p className="font-display text-lg text-brand-accent font-semibold">{val}</p>
-                        <p className="font-body text-[10px] text-brand-ghost uppercase tracking-wider">{key}</p>
-                      </div>
-                    ))}
-                  </div>
-                </div>
+        <SectionHeading eyebrow="What I Do" title="Services Built to Grow Your Business" subtitle="From single landing pages to complete web applications — I design and develop websites that work as hard as you do." center />
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {SITE_CONFIG.services.slice(0, 3).map((s, i) => (
+            <AnimatedSection key={s.id} delay={i * 80}>
+              <div className={`card h-full ${s.popular ? 'border-brand-accent/60 ring-1 ring-brand-accent/20' : ''}`}>
+                {s.popular && <span className="inline-block bg-brand-accent text-white text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 mb-4">Most Popular</span>}
+                <div className="text-3xl mb-4">{s.icon}</div>
+                <h3 className="font-display text-xl text-brand-ink mb-2">{s.title}</h3>
+                <p className="text-brand-muted text-sm leading-relaxed mb-4">{s.description}</p>
+                <p className="font-display text-lg text-brand-accent font-semibold">{s.price}</p>
               </div>
             </AnimatedSection>
           ))}
         </div>
-
-        <AnimatedSection className="mt-12 text-center" delay={300}>
-          <Link href="/portfolio" className="btn-secondary">
-            View Full Portfolio →
-          </Link>
+        <AnimatedSection className="mt-10 text-center" delay={200}>
+          <Link href="/services" className="btn-secondary">View All Services →</Link>
         </AnimatedSection>
       </div>
     </section>
   );
 }
 
-// ── BLOG PREVIEW (home page) ──────────────────────────────────────────────────
-function BlogPreview() {
-  const posts = SITE_CONFIG.blogPosts;
-
+// Portfolio preview
+function PortfolioPreview() {
   return (
-    <section className="section-pad bg-brand-ink">
+    <section className="section-pad bg-brand-bg">
       <div className="section-wrapper">
-        <SectionHeading
-          eyebrow="From the Blog"
-          title="Insights on Writing &amp; Strategy"
-          subtitle="Practical advice on copywriting, LinkedIn content, and building your brand through words."
-        />
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {posts.map((post, i) => (
-            <AnimatedSection key={post.slug} delay={i * 100}>
-              <Link href={`/blog/${post.slug}`} className="group block">
-                <article className="h-full bg-brand-steel border border-brand-rule group-hover:border-brand-accent/40 transition-all duration-300 group-hover:-translate-y-1">
-                  {/* Image placeholder */}
-                  <div className="h-40 bg-brand-ink relative overflow-hidden">
-                    <div className="absolute inset-0 bg-gradient-to-br from-brand-accent/10 to-transparent" />
-                    <div className="absolute top-4 left-4 bg-brand-ink/80 border border-brand-rule px-2.5 py-1">
-                      <span className="font-body text-[10px] text-brand-accent font-semibold uppercase tracking-widest">
-                        {post.category}
-                      </span>
-                    </div>
+        <SectionHeading eyebrow="Portfolio" title="Real Websites. Real Results." subtitle="Live websites I have designed and built for real clients — click to visit each one." />
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {SITE_CONFIG.portfolio.slice(0, 2).map((p, i) => (
+            <AnimatedSection key={p.id} delay={i * 100}>
+              <a href={p.liveUrl} target="_blank" rel="noopener noreferrer" className="group block">
+                <div className="bg-white border border-brand-rule shadow-card group-hover:shadow-card-lg group-hover:-translate-y-1 transition-all duration-300 overflow-hidden">
+                  <div className="h-44 bg-brand-bg-alt flex items-center justify-center relative">
+                    <span className="font-display text-7xl font-bold text-brand-accent/15">{String(i+1).padStart(2,'0')}</span>
+                    <div className="absolute top-4 left-4 bg-brand-accent text-white text-[10px] font-bold uppercase tracking-widest px-2.5 py-1">Live ↗</div>
                   </div>
-
                   <div className="p-6">
-                    <div className="flex items-center gap-3 mb-3">
-                      <span className="font-body text-[11px] text-brand-ghost">{post.date}</span>
-                      <span className="text-brand-rule">·</span>
-                      <span className="font-body text-[11px] text-brand-ghost">{post.readTime}</span>
-                    </div>
-                    <h3 className="font-display text-xl text-brand-mist group-hover:text-brand-accent transition-colors leading-snug">
-                      {post.title}
-                    </h3>
-                    <p className="mt-3 text-brand-ghost text-sm leading-relaxed line-clamp-2">
-                      {post.excerpt}
-                    </p>
-                    <p className="mt-4 text-brand-accent text-xs font-body font-medium">
-                      Read Article →
-                    </p>
+                    <p className="text-brand-muted text-xs mb-1">{p.client}</p>
+                    <h3 className="font-display text-xl text-brand-ink group-hover:text-brand-accent transition-colors mb-2">{p.title}</h3>
+                    <p className="text-brand-muted text-sm line-clamp-2">{p.excerpt}</p>
                   </div>
-                </article>
-              </Link>
+                </div>
+              </a>
             </AnimatedSection>
           ))}
         </div>
-
-        <AnimatedSection className="mt-12 text-center" delay={300}>
-          <Link href="/blog" className="btn-secondary">
-            Read All Articles →
-          </Link>
+        <AnimatedSection className="mt-10 text-center" delay={200}>
+          <Link href="/portfolio" className="btn-secondary">View Full Portfolio →</Link>
         </AnimatedSection>
       </div>
     </section>
   );
 }
 
-// ── MAIN HOME PAGE ────────────────────────────────────────────────────────────
+// Testimonial preview
+function TestimonialPreview() {
+  const t = SITE_CONFIG.testimonials[0];
+  return (
+    <section className="section-pad bg-white">
+      <div className="section-wrapper max-w-3xl mx-auto text-center">
+        <AnimatedSection>
+          <p className="eyebrow mb-4">Client Voices</p>
+          <div className="text-brand-accent text-3xl mb-6">★★★★★</div>
+          <blockquote className="font-display text-2xl text-brand-ink italic leading-snug mb-8">
+            "{t.text.slice(0, 180)}..."
+          </blockquote>
+          <div className="flex items-center justify-center gap-3">
+            <div className="w-12 h-12 rounded-full bg-brand-bg-alt border-2 border-brand-accent/30 flex items-center justify-center">
+              <span className="font-display text-lg text-brand-accent">{t.name.charAt(0)}</span>
+            </div>
+            <div className="text-left">
+              <p className="font-body font-semibold text-brand-ink text-sm">{t.name}</p>
+              <p className="font-body text-xs text-brand-muted">{t.role}</p>
+            </div>
+          </div>
+        </AnimatedSection>
+      </div>
+    </section>
+  );
+}
+
+// WhatsApp mid-section CTA
+function WhatsAppMidCTA() {
+  return (
+    <section className="py-16 bg-brand-bg-alt">
+      <div className="section-wrapper text-center">
+        <AnimatedSection>
+          <p className="text-brand-muted text-lg mb-6 max-w-xl mx-auto">
+            Have a project in mind? Let's discuss it on WhatsApp — I reply fast.
+          </p>
+          <a href={SITE_CONFIG.whatsappMsg} target="_blank" rel="noopener noreferrer" className="btn-whatsapp text-base px-8 py-4">
+            <WhatsAppIcon />
+            Get a Free Consultation
+          </a>
+        </AnimatedSection>
+      </div>
+    </section>
+  );
+}
+
 export default function HomePage() {
   return (
     <>
-      <NextSeo
-        title={SITE_CONFIG.seo.title}
-        description={SITE_CONFIG.seo.description}
-      />
+      <NextSeo title={SITE_CONFIG.seo.title} description={SITE_CONFIG.seo.description} />
       <Layout>
-        {/* Hero section */}
         <Hero />
-
-        {/* Brief intro strip */}
-        <div className="bg-brand-slate border-y border-brand-rule py-10">
-          <div className="section-wrapper">
-            <AnimatedSection className="flex flex-wrap items-center justify-between gap-6">
-              <p className="font-display text-xl text-brand-mist max-w-2xl italic">
-                "Every great brand has a story. I help you tell yours — with copy that converts, content that builds trust, and words that last."
-              </p>
-              <div className="flex items-center gap-4">
-                <span className="font-body text-xs text-brand-ghost uppercase tracking-widest">— {SITE_CONFIG.name}</span>
-              </div>
-            </AnimatedSection>
-          </div>
-        </div>
-
-        {/* Services (preview — 3 cards) */}
-        <Services preview={true} />
-
-        {/* Portfolio preview */}
+        <ServicesPreview />
         <PortfolioPreview />
-
-        {/* Testimonials */}
-        <Testimonials />
-
-        {/* Blog preview */}
-        <BlogPreview />
-
-        {/* FAQ */}
-        <FAQ />
-
-        {/* CTA banner */}
+        <TestimonialPreview />
+        <WhatsAppMidCTA />
         <CTABanner />
       </Layout>
     </>
