@@ -1,7 +1,4 @@
-/* ──────────────────────────────────────────────────────────────────────────
-   GLOBAL STYLES — styles/globals.css
-   Edit font imports below to change typography site-wide.
-   ────────────────────────────────────────────────────────────────────────── */
+/* ── GLOBAL STYLES — Light Premium Theme ──────────────────────────────────── */
 
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
 
@@ -9,168 +6,214 @@
 @tailwind components;
 @tailwind utilities;
 
-/* ── BASE RESETS ─────────────────────────────────────────────────────────── */
+/* ── BASE ─────────────────────────────────────────────────────────────────── */
 @layer base {
-  html {
-    scroll-behavior: smooth;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
+  html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
 
   body {
-    @apply bg-brand-ink text-brand-mist font-body;
+    @apply bg-brand-bg text-brand-ink font-body;
     font-size: 16px;
-    line-height: 1.6;
+    line-height: 1.65;
   }
 
-  /* Heading defaults */
-  h1, h2, h3, h4, h5, h6 {
-    @apply font-display;
-  }
+  /* All headings use dark ink on light background */
+  h1, h2, h3, h4, h5, h6 { @apply font-display text-brand-ink; }
 
-  /* Smooth focus outline for accessibility */
-  *:focus-visible {
-    @apply outline-2 outline-offset-2 outline-brand-accent;
-  }
+  *:focus-visible { @apply outline-2 outline-offset-2 outline-brand-accent; }
 
-  /* Custom scrollbar — matches brand palette */
-  ::-webkit-scrollbar { width: 6px; }
-  ::-webkit-scrollbar-track { @apply bg-brand-ink; }
+  /* Scrollbar */
+  ::-webkit-scrollbar { width: 5px; }
+  ::-webkit-scrollbar-track { @apply bg-brand-bg; }
   ::-webkit-scrollbar-thumb { @apply bg-brand-accent rounded-full; }
-  ::-webkit-scrollbar-thumb:hover { @apply bg-brand-accent-light; }
+
+  /* Fix: all images contained in their parent */
+  img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+  }
 }
 
-/* ── REUSABLE COMPONENT CLASSES ──────────────────────────────────────────── */
+/* ── COMPONENTS ───────────────────────────────────────────────────────────── */
 @layer components {
 
-  /* ─ Section wrapper */
-  .section-wrapper {
-    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
-  }
+  .section-wrapper { @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8; }
+  .section-pad     { @apply py-20 lg:py-28; }
 
-  /* ─ Section padding */
-  .section-pad {
-    @apply py-20 lg:py-28;
-  }
-
-  /* ─ Eyebrow label (small text above headings) */
+  /* Eyebrow label */
   .eyebrow {
     @apply font-body text-xs font-semibold tracking-[0.2em] uppercase text-brand-accent;
   }
 
-  /* ─ Primary CTA button */
+  /* Primary CTA button */
   .btn-primary {
-    @apply inline-flex items-center gap-2 px-7 py-3.5 
-           bg-brand-accent text-brand-ink 
+    @apply inline-flex items-center gap-2 px-7 py-3.5
+           bg-brand-accent text-white
            font-body font-semibold text-sm tracking-wide
-           rounded-none
            transition-all duration-300
-           hover:bg-brand-accent-light hover:shadow-[0_0_30px_rgba(200,169,110,0.35)]
+           hover:bg-brand-accent-light hover:shadow-gold hover:-translate-y-0.5
            active:scale-[0.98];
   }
 
-  /* ─ Secondary outline button */
+  /* Secondary outline button */
   .btn-secondary {
     @apply inline-flex items-center gap-2 px-7 py-3.5
-           border border-brand-accent text-brand-accent
+           border-2 border-brand-accent text-brand-accent
            font-body font-semibold text-sm tracking-wide
-           rounded-none
+           bg-transparent
            transition-all duration-300
-           hover:bg-brand-accent hover:text-brand-ink
+           hover:bg-brand-accent hover:text-white hover:-translate-y-0.5
            active:scale-[0.98];
   }
 
-  /* ─ Ghost text button */
+  /* Ghost text button */
   .btn-ghost {
-    @apply inline-flex items-center gap-1.5 text-brand-ghost text-sm
+    @apply inline-flex items-center gap-1.5 text-brand-muted text-sm
            font-body font-medium tracking-wide
            transition-colors duration-200
            hover:text-brand-accent;
   }
 
-  /* ─ Card with hover lift */
-  .card {
-    @apply bg-brand-steel border border-brand-rule p-6
+  /* WhatsApp button */
+  .btn-whatsapp {
+    @apply inline-flex items-center gap-2.5 px-7 py-3.5
+           bg-brand-whatsapp text-white
+           font-body font-semibold text-sm tracking-wide
            transition-all duration-300
-           hover:-translate-y-1 hover:border-brand-accent/30 hover:shadow-[0_8px_30px_rgba(200,169,110,0.1)];
+           hover:bg-[#22c55e] hover:shadow-wa hover:-translate-y-0.5
+           active:scale-[0.98];
   }
 
-  /* ─ Input field */
+  /* Card */
+  .card {
+    @apply bg-white border border-brand-rule p-6
+           shadow-card transition-all duration-300
+           hover:-translate-y-1 hover:shadow-card-lg hover:border-brand-accent/40;
+  }
+
+  /* Input field */
   .input-field {
-    @apply w-full bg-brand-slate border border-brand-rule
-           text-brand-mist placeholder-brand-ghost
+    @apply w-full bg-white border border-brand-rule
+           text-brand-ink placeholder-brand-muted
            px-4 py-3 font-body text-sm
            transition-all duration-200
-           focus:outline-none focus:border-brand-accent focus:bg-brand-steel;
+           focus:outline-none focus:border-brand-accent focus:shadow-[0_0_0_3px_rgba(200,169,107,0.15)];
   }
 
-  /* ─ Textarea field */
+  /* Textarea */
   .textarea-field {
-    @apply w-full bg-brand-slate border border-brand-rule
-           text-brand-mist placeholder-brand-ghost
+    @apply w-full bg-white border border-brand-rule
+           text-brand-ink placeholder-brand-muted
            px-4 py-3 font-body text-sm resize-none
            transition-all duration-200
-           focus:outline-none focus:border-brand-accent focus:bg-brand-steel;
+           focus:outline-none focus:border-brand-accent focus:shadow-[0_0_0_3px_rgba(200,169,107,0.15)];
   }
 
-  /* ─ Gold shimmer text gradient */
-  .text-gold-shimmer {
-    background: linear-gradient(
-      90deg,
-      #C8A96E 0%,
-      #E8C98A 40%,
-      #F5DFA0 50%,
-      #E8C98A 60%,
-      #C8A96E 100%
-    );
-    background-size: 200% auto;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    animation: shimmer 3.5s linear infinite;
-  }
-
-  /* ─ Horizontal rule with gold fade */
+  /* Gold rule */
   .gold-rule {
     @apply border-0 h-px;
-    background: linear-gradient(90deg, transparent, #C8A96E, transparent);
+    background: linear-gradient(90deg, transparent, #C8A96B, transparent);
   }
 
-  /* ─ Noise texture overlay (for depth) */
-  .noise-overlay::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
-    opacity: 0.04;
-    pointer-events: none;
-    border-radius: inherit;
+  /* Section divider */
+  .section-divider { @apply w-12 h-0.5 bg-brand-accent; }
+
+  /* ── IMAGE CONTAINERS — Fix overflow everywhere ── */
+  .img-cover {
+    @apply relative overflow-hidden;
   }
+  .img-cover img,
+  .img-cover > span > img {
+    @apply w-full h-full object-cover object-top;
+  }
+
+  /* ── DARK THEME OVERRIDES — for components that use dark classes ── */
+  /* These map old dark-theme classes to light-theme equivalents */
+  .bg-brand-slate  { @apply bg-brand-bg; }
+  .bg-brand-steel  { @apply bg-white; }
+  .bg-brand-ink-section { @apply bg-brand-bg-alt; }
+  .text-brand-mist { @apply text-brand-ink; }
+  .text-brand-ghost { @apply text-brand-muted; }
+  .border-brand-rule-dark { @apply border-brand-rule; }
+
+  /* Admin page dark overrides — keep admin dark */
+  .admin-dark { @apply bg-[#0D1117] text-[#E8EDF4]; }
 }
 
 /* ── UTILITIES ────────────────────────────────────────────────────────────── */
 @layer utilities {
-  /* Animation delay helpers */
-  .delay-100 { animation-delay: 100ms; }
-  .delay-200 { animation-delay: 200ms; }
-  .delay-300 { animation-delay: 300ms; }
-  .delay-400 { animation-delay: 400ms; }
-  .delay-500 { animation-delay: 500ms; }
-  .delay-700 { animation-delay: 700ms; }
+  .text-gold { color: #C8A96B; }
+  .bg-gold   { background-color: #C8A96B; }
 
-  /* Visibility helpers for animated reveals */
-  .opacity-0-start { opacity: 0; }
+  /* Responsive text helpers */
+  .text-balance { text-wrap: balance; }
 
-  /* Perspective for 3D transforms */
-  .perspective-1000 { perspective: 1000px; }
+  /* Prevent text overflow on small screens */
+  .heading-responsive {
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    hyphens: auto;
+  }
 }
 
+/* ── ARTICLE BODY STYLES ──────────────────────────────────────────────────── */
+.article-body p          { color: #6B6B6B; font-size: 1.0625rem; line-height: 1.85; margin-bottom: 1.4rem; }
+.article-body p.lead     { color: #1F1F1F; font-size: 1.15rem; line-height: 1.7; font-style: italic; border-left: 3px solid #C8A96B; padding-left: 1.25rem; margin-bottom: 2rem; }
+.article-body h2         { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 1.65rem; color: #1F1F1F; margin-top: 2.5rem; margin-bottom: 1rem; line-height: 1.2; }
+.article-body h3         { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 1.25rem; color: #C8A96B; margin-top: 1.75rem; margin-bottom: 0.75rem; }
+.article-body blockquote { background: #F8F4EE; border-left: 3px solid #C8A96B; padding: 1rem 1.5rem; margin: 1.75rem 0; color: #1F1F1F; font-style: italic; font-size: 1.05rem; }
+.article-body ul,
+.article-body ol         { color: #6B6B6B; padding-left: 1.5rem; margin-bottom: 1.4rem; }
+.article-body li         { margin-bottom: 0.5rem; line-height: 1.7; }
+.article-body ul li::marker { color: #C8A96B; }
+.article-body ol li::marker { color: #C8A96B; font-weight: 600; }
+.article-body strong     { color: #1F1F1F; font-weight: 600; }
+.article-body a          { color: #C8A96B; text-decoration: underline; }
+.article-body .footnote  { font-size: 0.875rem; color: #6B6B6B; border-top: 1px solid #DDD5C8; margin-top: 3rem; padding-top: 1rem; font-style: italic; }
+
+/* ── RESEARCH BODY STYLES ─────────────────────────────────────────────────── */
+.research-body p          { color: #6B6B6B; font-size: 1.0625rem; line-height: 1.9; margin-bottom: 1.5rem; }
+.research-body h2         { font-family: 'Cormorant Garamond', serif; font-size: 1.65rem; color: #1F1F1F; margin-top: 3rem; margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 1px solid #DDD5C8; }
+.research-body h3         { font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; color: #C8A96B; margin-top: 2rem; margin-bottom: 0.75rem; }
+.research-body blockquote { background: #F8F4EE; border-left: 3px solid #C8A96B; padding: 1.25rem 1.5rem; margin: 2rem 0; color: #1F1F1F; font-style: italic; font-size: 1.05rem; }
+.research-body ul,
+.research-body ol         { color: #6B6B6B; padding-left: 1.5rem; margin-bottom: 1.5rem; }
+.research-body li         { margin-bottom: 0.6rem; line-height: 1.8; }
+.research-body ul li::marker { color: #C8A96B; }
+.research-body strong     { color: #1F1F1F; font-weight: 600; }
+.research-body em         { color: #C8A96B; font-style: italic; }
+.research-body a          { color: #C8A96B; text-decoration: underline; }
+.research-body .footnote  { font-size: 0.875rem; color: #6B6B6B; border-top: 1px solid #DDD5C8; margin-top: 3rem; padding-top: 1rem; font-style: italic; }
+
 /* ── REDUCED MOTION ───────────────────────────────────────────────────────── */
-/* Respects user's OS-level motion preferences */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
+}
+
+/* ── RESPONSIVE FIXES ─────────────────────────────────────────────────────── */
+
+/* Prevent horizontal scroll on mobile */
+@media (max-width: 640px) {
+  .section-wrapper { @apply px-4; }
+
+  /* Hero heading — prevent overflow on small screens */
+  h1 { word-break: break-word; }
+
+  /* Cards — full width on mobile */
+  .card { @apply p-5; }
+
+  /* Buttons — ensure readable size */
+  .btn-primary,
+  .btn-secondary,
+  .btn-whatsapp {
+    @apply text-sm px-5 py-3;
+  }
+}
+
+/* Tablet adjustments */
+@media (min-width: 641px) and (max-width: 1023px) {
+  .section-wrapper { @apply px-6; }
 }

@@ -275,7 +275,7 @@ export default function BlogPost({ post, content, prevPost, nextPost }) {
       <Layout>
 
         {/* ── ARTICLE HERO ── */}
-        <section className="pt-32 pb-16 bg-brand-ink relative overflow-hidden">
+        <section className="pt-32 pb-16 bg-brand-bg relative overflow-hidden">
           <div className="absolute inset-0 opacity-10"
             style={{ background: 'radial-gradient(circle at 70% 30%, #C8A96E 0%, transparent 60%)' }}
           />
@@ -289,32 +289,32 @@ export default function BlogPost({ post, content, prevPost, nextPost }) {
               </div>
 
               {/* Title */}
-              <h1 className="font-display text-display-md text-brand-mist leading-tight mb-6">
+              <h1 className="font-display text-display-md text-brand-ink leading-tight mb-6">
                 {post.title}
               </h1>
 
               {/* Meta */}
               <div className="flex flex-wrap items-center gap-4 pb-8 border-b border-brand-rule">
                 <div className="flex items-center gap-3">
-                  <div className="w-9 h-9 rounded-full bg-brand-steel border border-brand-accent/40 flex items-center justify-center">
+                  <div className="w-9 h-9 rounded-full bg-white border border-brand-accent/40 flex items-center justify-center">
                     <span className="font-display text-sm text-brand-accent">M</span>
                   </div>
                   <div>
-                    <p className="font-body text-xs font-semibold text-brand-mist">{SITE_CONFIG.name}</p>
-                    <p className="font-body text-[11px] text-brand-ghost">Frontend Developer & Writer</p>
+                    <p className="font-body text-xs font-semibold text-brand-ink">{SITE_CONFIG.name}</p>
+                    <p className="font-body text-[11px] text-brand-muted">Frontend Developer & Writer</p>
                   </div>
                 </div>
                 <span className="text-brand-rule hidden sm:block">·</span>
-                <span className="text-brand-ghost text-xs">{post.date}</span>
+                <span className="text-brand-muted text-xs">{post.date}</span>
                 <span className="text-brand-rule">·</span>
-                <span className="text-brand-ghost text-xs">{post.readTime}</span>
+                <span className="text-brand-muted text-xs">{post.readTime}</span>
               </div>
             </AnimatedSection>
           </div>
         </section>
 
         {/* ── ARTICLE BODY ── */}
-        <section className="py-16 bg-brand-slate">
+        <section className="py-16 bg-brand-bg">
           <div className="section-wrapper max-w-3xl">
             <AnimatedSection>
               <div
@@ -333,14 +333,14 @@ export default function BlogPost({ post, content, prevPost, nextPost }) {
 
             {/* ── AUTHOR BIO ── */}
             <AnimatedSection delay={100} className="mt-12">
-              <div className="bg-brand-steel border border-brand-rule p-6 flex items-start gap-5">
-                <div className="w-14 h-14 rounded-full bg-brand-ink border-2 border-brand-accent/40 flex items-center justify-center flex-shrink-0">
+              <div className="bg-white border border-brand-rule p-6 flex items-start gap-5">
+                <div className="w-14 h-14 rounded-full bg-brand-bg border-2 border-brand-accent/40 flex items-center justify-center flex-shrink-0">
                   <span className="font-display text-xl text-brand-accent">M</span>
                 </div>
                 <div>
                   <p className="eyebrow mb-1">About the Author</p>
-                  <p className="font-body font-semibold text-brand-mist text-sm">{SITE_CONFIG.name}</p>
-                  <p className="text-brand-ghost text-xs mt-1 leading-relaxed">
+                  <p className="font-body font-semibold text-brand-ink text-sm">{SITE_CONFIG.name}</p>
+                  <p className="text-brand-muted text-xs mt-1 leading-relaxed">
                     Frontend Web Developer & Web Designer from Pakistan. I build modern, responsive websites for businesses and personal brands, and write about web development, content strategy, and freelancing.
                   </p>
                   <div className="flex gap-4 mt-3">
@@ -356,18 +356,18 @@ export default function BlogPost({ post, content, prevPost, nextPost }) {
               <AnimatedSection delay={150} className="mt-10">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   {prevPost ? (
-                    <Link href={`/blog/${prevPost.slug}`} className="group block bg-brand-steel border border-brand-rule hover:border-brand-accent/40 p-5 transition-all duration-200">
-                      <p className="font-body text-xs text-brand-ghost uppercase tracking-widest mb-2">← Previous Article</p>
-                      <p className="font-display text-base text-brand-mist group-hover:text-brand-accent transition-colors leading-snug">
+                    <Link href={`/blog/${prevPost.slug}`} className="group block bg-white border border-brand-rule hover:border-brand-accent/40 p-5 transition-all duration-200">
+                      <p className="font-body text-xs text-brand-muted uppercase tracking-widest mb-2">← Previous Article</p>
+                      <p className="font-display text-base text-brand-ink group-hover:text-brand-accent transition-colors leading-snug">
                         {prevPost.title}
                       </p>
                     </Link>
                   ) : <div />}
 
                   {nextPost ? (
-                    <Link href={`/blog/${nextPost.slug}`} className="group block bg-brand-steel border border-brand-rule hover:border-brand-accent/40 p-5 transition-all duration-200 sm:text-right">
-                      <p className="font-body text-xs text-brand-ghost uppercase tracking-widest mb-2">Next Article →</p>
-                      <p className="font-display text-base text-brand-mist group-hover:text-brand-accent transition-colors leading-snug">
+                    <Link href={`/blog/${nextPost.slug}`} className="group block bg-white border border-brand-rule hover:border-brand-accent/40 p-5 transition-all duration-200 sm:text-right">
+                      <p className="font-body text-xs text-brand-muted uppercase tracking-widest mb-2">Next Article →</p>
+                      <p className="font-display text-base text-brand-ink group-hover:text-brand-accent transition-colors leading-snug">
                         {nextPost.title}
                       </p>
                     </Link>
@@ -381,18 +381,18 @@ export default function BlogPost({ post, content, prevPost, nextPost }) {
         {/* ── MORE ARTICLES ── */}
         <section className="section-pad bg-brand-ink">
           <div className="section-wrapper max-w-3xl">
-            <h2 className="font-display text-2xl text-brand-mist mb-8">More Articles</h2>
+            <h2 className="font-display text-2xl text-brand-ink mb-8">More Articles</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
               {SITE_CONFIG.blogPosts
                 .filter(p => p.slug !== post.slug)
                 .map(p => (
                   <Link key={p.slug} href={`/blog/${p.slug}`} className="group block">
-                    <div className="bg-brand-steel border border-brand-rule group-hover:border-brand-accent/40 p-5 h-full transition-all duration-200">
+                    <div className="bg-white border border-brand-rule group-hover:border-brand-accent/40 p-5 h-full transition-all duration-200">
                       <span className="eyebrow text-[10px]">{p.category}</span>
-                      <h3 className="font-display text-lg text-brand-mist mt-2 mb-2 group-hover:text-brand-accent transition-colors leading-snug">
+                      <h3 className="font-display text-lg text-brand-ink mt-2 mb-2 group-hover:text-brand-accent transition-colors leading-snug">
                         {p.title}
                       </h3>
-                      <p className="text-brand-ghost text-xs leading-relaxed line-clamp-2">{p.excerpt}</p>
+                      <p className="text-brand-muted text-xs leading-relaxed line-clamp-2">{p.excerpt}</p>
                       <p className="text-brand-accent text-xs font-semibold mt-4">Read Article →</p>
                     </div>
                   </Link>

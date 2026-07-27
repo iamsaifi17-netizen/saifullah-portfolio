@@ -1,4 +1,4 @@
-// components/sections/Hero.jsx — Light theme + WhatsApp + Full Stack Developer
+// components/sections/Hero.jsx — Fixed hero heading + image + responsive
 
 import Link from 'next/link';
 import Image from 'next/image';
@@ -41,7 +41,6 @@ export default function Hero() {
           style={{ background: 'radial-gradient(circle, #C8A96B22 0%, transparent 70%)' }} />
         <div className="absolute bottom-0 left-0 w-[400px] h-[400px] opacity-20 rounded-full"
           style={{ background: 'radial-gradient(circle, #C8A96B22 0%, transparent 70%)' }} />
-        {/* Subtle grid */}
         <div className="absolute inset-0 opacity-[0.03]"
           style={{
             backgroundImage: 'linear-gradient(#1F1F1F 1px, transparent 1px), linear-gradient(90deg, #1F1F1F 1px, transparent 1px)',
@@ -49,63 +48,75 @@ export default function Hero() {
           }} />
       </div>
 
-      <div className="section-wrapper relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center pt-28 pb-16">
+      <div className="section-wrapper relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center pt-28 pb-16">
 
         {/* LEFT: TEXT */}
-        <motion.div variants={container} initial="hidden" animate="visible" className="space-y-8">
+        <motion.div variants={container} initial="hidden" animate="visible" className="space-y-7">
 
           {/* Eyebrow */}
           <motion.div variants={fadeUp} className="flex items-center gap-3">
-            <div className="w-8 h-0.5 bg-brand-accent" />
+            <div className="w-8 h-0.5 bg-brand-accent flex-shrink-0" />
             <p className="eyebrow">Web Designer & Full Stack Developer</p>
           </motion.div>
 
-          {/* Headline */}
-          <motion.h1 variants={fadeUp} className="font-display text-display-xl text-brand-ink leading-[1.0]">
-            Designing Websites<br />
-            <span className="text-brand-accent">That Grow</span><br />
-            Businesses.
+          {/* ── FIXED HEADLINE ── */}
+          {/* Issue 1 fixed: no awkward wraps, all text uses brand-ink (dark) on light bg */}
+          <motion.h1
+            variants={fadeUp}
+            className="font-display text-brand-ink"
+            style={{
+              fontSize: 'clamp(2.6rem, 6vw, 5.5rem)',
+              lineHeight: '1.05',
+              letterSpacing: '-0.025em',
+            }}
+          >
+            {/* Line 1 */}
+            <span className="block text-brand-ink">Designing</span>
+            {/* Line 2 — accent colored */}
+            <span className="block text-brand-accent">Websites That</span>
+            {/* Line 3 */}
+            <span className="block text-brand-ink">Grow Businesses.</span>
           </motion.h1>
 
           {/* Sub */}
-          <motion.p variants={fadeUp} className="text-brand-muted text-lg leading-relaxed max-w-xl">
+          <motion.p variants={fadeUp} className="text-brand-muted text-base lg:text-lg leading-relaxed max-w-xl">
             {SITE_CONFIG.subTagline}
           </motion.p>
 
           {/* CTA Buttons */}
           <motion.div variants={fadeUp} className="flex flex-wrap gap-4">
             <a
-              href={SITE_CONFIG.whatsappMsg}
+              href={SITE_CONFIG.whatsappMsg || `https://wa.me/923185352563`}
               target="_blank"
               rel="noopener noreferrer"
-              className="btn-whatsapp text-base px-8 py-4"
+              className="btn-whatsapp text-sm sm:text-base px-6 sm:px-8 py-3.5 sm:py-4"
             >
               <WhatsAppIcon />
               Let's Discuss Your Project
             </a>
-            <Link href="/portfolio" className="btn-secondary text-base px-8 py-4">
+            <Link href="/portfolio" className="btn-secondary text-sm sm:text-base px-6 sm:px-8 py-3.5 sm:py-4">
               View My Work
             </Link>
           </motion.div>
 
-          {/* Trust badges */}
-          <motion.div variants={fadeUp} className="flex flex-wrap gap-4">
+          {/* Tech badges */}
+          <motion.div variants={fadeUp} className="flex flex-wrap gap-2.5">
             {['Next.js', 'React', 'Tailwind CSS', 'Full Stack'].map(tech => (
-              <span key={tech} className="font-body text-xs text-brand-muted border border-brand-rule px-3 py-1.5 bg-white">
+              <span key={tech} className="font-body text-xs text-brand-ink font-medium border border-brand-rule px-3 py-1.5 bg-white shadow-sm">
                 {tech}
               </span>
             ))}
           </motion.div>
 
           {/* Stats */}
-          <motion.div variants={fadeUp} className="grid grid-cols-2 sm:grid-cols-4 gap-6 pt-6 border-t border-brand-rule">
+          <motion.div variants={fadeUp} className="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-6 border-t border-brand-rule">
             {SITE_CONFIG.about.stats.map(stat => (
               <StatItem key={stat.label} value={stat.value} label={stat.label} />
             ))}
           </motion.div>
         </motion.div>
 
-        {/* RIGHT: PHOTO */}
+        {/* RIGHT: PHOTO — Issue 2 fixed: image contained, no overflow */}
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -113,32 +124,35 @@ export default function Hero() {
           className="relative flex justify-center lg:justify-end"
         >
           {/* Gold frame */}
-          <div className="absolute -top-4 -right-4 w-full max-w-sm h-full border-2 border-brand-accent/30 hidden lg:block" />
+          <div className="absolute -top-3 -right-3 w-full max-w-xs lg:max-w-sm h-full border-2 border-brand-accent/30 hidden lg:block pointer-events-none" />
 
-          <div className="relative w-full max-w-sm aspect-[4/5] overflow-hidden bg-brand-bg-alt shadow-card-lg">
+          {/* Image container — fixed overflow */}
+          <div className="relative w-full max-w-xs lg:max-w-sm overflow-hidden bg-brand-bg-alt shadow-card-lg"
+            style={{ aspectRatio: '4/5' }}>
             <Image
               src="/images/profile.jpg"
               alt={`${SITE_CONFIG.name} — Web Designer & Full Stack Developer`}
               fill
               priority
               className="object-cover object-top"
-              sizes="(max-width: 768px) 100vw, 450px"
+              sizes="(max-width: 640px) 80vw, (max-width: 1024px) 40vw, 400px"
             />
-            <div className="absolute bottom-0 left-0 right-0 h-1/4 bg-gradient-to-t from-brand-bg/40 to-transparent" />
+            {/* Bottom gradient overlay */}
+            <div className="absolute bottom-0 left-0 right-0 h-1/4 bg-gradient-to-t from-brand-bg/30 to-transparent pointer-events-none" />
           </div>
 
-          {/* Floating availability badge */}
+          {/* Availability badge */}
           <motion.div
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.9, duration: 0.5 }}
-            className="absolute bottom-8 -left-4 bg-white border border-brand-rule px-5 py-3 shadow-card-lg"
+            className="absolute bottom-6 -left-2 lg:-left-4 bg-white border border-brand-rule px-4 py-3 shadow-card-lg z-10"
           >
-            <div className="flex items-center gap-2 mb-1">
-              <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-              <p className="font-body text-xs font-semibold text-green-600 uppercase tracking-widest">Available Now</p>
+            <div className="flex items-center gap-2 mb-0.5">
+              <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse flex-shrink-0" />
+              <p className="font-body text-xs font-semibold text-green-600 uppercase tracking-widest whitespace-nowrap">Available Now</p>
             </div>
-            <p className="font-display text-sm text-brand-ink font-medium">Ready for New Projects</p>
+            <p className="font-display text-sm text-brand-ink font-medium whitespace-nowrap">Ready for New Projects</p>
           </motion.div>
         </motion.div>
 
@@ -149,7 +163,7 @@ export default function Hero() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.3 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
+        className="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
       >
         <p className="font-body text-xs text-brand-muted uppercase tracking-widest">Scroll</p>
         <motion.div

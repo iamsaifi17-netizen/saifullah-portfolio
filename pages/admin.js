@@ -345,7 +345,7 @@ export default function AdminDashboard() {
               {/* ── NOTE ── */}
               <div className="mt-6 bg-brand-slate border border-brand-rule p-4">
                 <p className="text-brand-ghost text-xs leading-relaxed">
-                  <strong className="text-brand-accent">Note:</strong> Analytics data is stored in server memory and resets when Vercel cold-starts the serverless function (usually after ~30 minutes of inactivity). To make data permanent, connect a free database like PlanetScale or Supabase later. Your password is: <code className="text-brand-accent bg-brand-ink px-1.5 py-0.5 rounded">saifi2026admin</code> — change it in Vercel Environment Variables.
+                  <strong className="text-brand-accent">Note:</strong> Analytics data is stored permanently in Supabase database — data never resets or gets lost. Your admin password is: <code className="text-brand-accent bg-brand-ink px-1.5 py-0.5 rounded">saifi2026admin</code> — change it in Vercel Environment Variables.
                 </p>
               </div>
             </>

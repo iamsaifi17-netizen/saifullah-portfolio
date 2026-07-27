@@ -27,16 +27,16 @@ function CategoryBadge({ category }) {
 function FeaturedCard({ post }) {
   return (
     <Link href={`/blog/${post.slug}`} className="group block">
-      <article className="bg-brand-steel border border-brand-rule group-hover:border-brand-accent/40 transition-all duration-300 group-hover:-translate-y-1 overflow-hidden md:flex">
+      <article className="bg-white border border-brand-rule group-hover:border-brand-accent/40 transition-all duration-300 group-hover:-translate-y-1 overflow-hidden md:flex">
         {/* Image */}
-        <div className="md:w-1/2 h-56 md:h-auto bg-brand-ink relative overflow-hidden flex-shrink-0">
+        <div className="md:w-1/2 h-56 md:h-auto bg-brand-bg relative overflow-hidden flex-shrink-0">
           <div className="absolute inset-0 bg-gradient-to-br from-brand-accent/12 to-transparent" />
           <div className="absolute inset-0 flex items-center justify-center">
             <span className="font-display text-8xl font-bold text-brand-accent/8 select-none">01</span>
           </div>
           <div className="absolute top-4 left-4 flex items-center gap-3">
             <CategoryBadge category={post.category} />
-            <span className="font-body text-[10px] text-brand-ghost bg-brand-ink/70 px-2 py-1 border border-brand-rule">
+            <span className="font-body text-[10px] text-brand-muted bg-white/70 px-2 py-1 border border-brand-rule">
               Featured
             </span>
           </div>
@@ -45,14 +45,14 @@ function FeaturedCard({ post }) {
         {/* Content */}
         <div className="p-8 flex flex-col justify-center">
           <div className="flex items-center gap-3 mb-4">
-            <span className="font-body text-xs text-brand-ghost">{post.date}</span>
+            <span className="font-body text-xs text-brand-muted">{post.date}</span>
             <span className="text-brand-rule">·</span>
-            <span className="font-body text-xs text-brand-ghost">{post.readTime}</span>
+            <span className="font-body text-xs text-brand-muted">{post.readTime}</span>
           </div>
-          <h2 className="font-display text-2xl lg:text-3xl text-brand-mist group-hover:text-brand-accent transition-colors leading-snug mb-4">
+          <h2 className="font-display text-2xl lg:text-3xl text-brand-ink group-hover:text-brand-accent transition-colors leading-snug mb-4">
             {post.title}
           </h2>
-          <p className="text-brand-ghost text-sm leading-relaxed mb-6 line-clamp-3">
+          <p className="text-brand-muted text-sm leading-relaxed mb-6 line-clamp-3">
             {post.excerpt}
           </p>
           <span className="text-brand-accent text-xs font-body font-semibold uppercase tracking-widest">
@@ -68,9 +68,9 @@ function BlogCard({ post, index }) {
   return (
     <AnimatedSection delay={index * 100}>
       <Link href={`/blog/${post.slug}`} className="group block h-full">
-        <article className="h-full bg-brand-steel border border-brand-rule group-hover:border-brand-accent/40 transition-all duration-300 group-hover:-translate-y-1 overflow-hidden flex flex-col">
+        <article className="h-full bg-white border border-brand-rule group-hover:border-brand-accent/40 transition-all duration-300 group-hover:-translate-y-1 overflow-hidden flex flex-col">
           {/* Image */}
-          <div className="h-44 bg-brand-ink relative overflow-hidden flex-shrink-0">
+          <div className="h-44 bg-brand-bg relative overflow-hidden flex-shrink-0">
             <div className="absolute inset-0 bg-gradient-to-br from-brand-accent/8 to-transparent" />
             <div className="absolute inset-0 flex items-center justify-center">
               <span className="font-display text-7xl font-bold text-brand-accent/8 select-none">
@@ -85,14 +85,14 @@ function BlogCard({ post, index }) {
           {/* Content */}
           <div className="p-6 flex flex-col flex-grow">
             <div className="flex items-center gap-3 mb-3">
-              <span className="font-body text-[11px] text-brand-ghost">{post.date}</span>
+              <span className="font-body text-[11px] text-brand-muted">{post.date}</span>
               <span className="text-brand-rule">·</span>
-              <span className="font-body text-[11px] text-brand-ghost">{post.readTime}</span>
+              <span className="font-body text-[11px] text-brand-muted">{post.readTime}</span>
             </div>
-            <h2 className="font-display text-xl text-brand-mist group-hover:text-brand-accent transition-colors leading-snug mb-3 flex-grow">
+            <h2 className="font-display text-xl text-brand-ink group-hover:text-brand-accent transition-colors leading-snug mb-3 flex-grow">
               {post.title}
             </h2>
-            <p className="text-brand-ghost text-sm leading-relaxed line-clamp-3 mb-5">
+            <p className="text-brand-muted text-sm leading-relaxed line-clamp-3 mb-5">
               {post.excerpt}
             </p>
             <span className="text-brand-accent text-xs font-body font-semibold uppercase tracking-widest">
@@ -117,17 +117,17 @@ export default function BlogPage() {
       <Layout>
 
         {/* ── PAGE HERO ── */}
-        <section className="pt-32 pb-20 bg-brand-ink relative overflow-hidden">
+        <section className="pt-32 pb-20 bg-brand-bg relative overflow-hidden">
           <div className="absolute top-0 right-0 w-96 h-96 opacity-15"
             style={{ background: 'radial-gradient(circle, #C8A96E 0%, transparent 70%)' }}
           />
           <div className="section-wrapper relative z-10">
             <AnimatedSection>
               <p className="eyebrow mb-3">Blog</p>
-              <h1 className="font-display text-display-lg text-brand-mist">
+              <h1 className="font-display text-display-lg text-brand-ink">
                 Insights on <span className="text-gold-shimmer">Web & Business</span>
               </h1>
-              <p className="mt-4 text-brand-ghost text-lg max-w-2xl leading-relaxed">
+              <p className="mt-4 text-brand-muted text-lg max-w-2xl leading-relaxed">
                 Practical articles on web development, website copy, LinkedIn strategy, and freelancing. Written from real experience — no filler.
               </p>
             </AnimatedSection>
@@ -135,7 +135,7 @@ export default function BlogPage() {
         </section>
 
         {/* ── BLOG CONTENT ── */}
-        <section className="section-pad bg-brand-slate">
+        <section className="section-pad bg-brand-bg">
           <div className="section-wrapper">
 
             {/* Featured article */}
@@ -156,8 +156,8 @@ export default function BlogPage() {
 
             {/* More coming soon */}
             <AnimatedSection className="mt-16 text-center border border-dashed border-brand-rule py-12">
-              <p className="font-display text-xl text-brand-mist mb-2">More Articles Coming Soon</p>
-              <p className="text-brand-ghost text-sm max-w-md mx-auto">
+              <p className="font-display text-xl text-brand-ink mb-2">More Articles Coming Soon</p>
+              <p className="text-brand-muted text-sm max-w-md mx-auto">
                 New articles on web development, design, and freelancing published regularly.
               </p>
             </AnimatedSection>

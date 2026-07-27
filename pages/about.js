@@ -58,8 +58,8 @@ export default function AboutPage() {
             <AnimatedSection direction="left">
               <div className="relative">
                 <div className="absolute -top-4 -left-4 w-full h-full border-2 border-brand-accent/20" />
-                <div className="relative aspect-[4/5] max-w-md bg-brand-bg-alt overflow-hidden shadow-card-lg">
-                  <Image src="/images/profile.jpg" alt={SITE_CONFIG.name} fill className="object-cover object-top" sizes="500px" />
+                <div className="relative bg-brand-bg-alt overflow-hidden shadow-card-lg" style={{aspectRatio:'4/5', maxWidth:'420px'}}>
+                  <Image src="/images/profile.jpg" alt={SITE_CONFIG.name} fill className="object-cover object-top" sizes="(max-width:768px) 100vw, 420px" />
                 </div>
                 <div className="absolute -bottom-6 right-0 bg-white border border-brand-rule shadow-card-lg px-6 py-4">
                   <p className="font-display text-3xl text-brand-accent">{SITE_CONFIG.about.stats[0].value}</p>

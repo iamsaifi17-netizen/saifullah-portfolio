@@ -1,6 +1,4 @@
-// components/sections/Testimonials.jsx
-// ── TESTIMONIALS ─────────────────────────────────────────────────────────────
-// Real client testimonials — data from lib/config.js → SITE_CONFIG.testimonials
+// components/sections/Testimonials.jsx — Fixed for light theme
 
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -10,7 +8,7 @@ import AnimatedSection from '../ui/AnimatedSection';
 
 function Stars({ rating }) {
   return (
-    <div className="flex gap-0.5" aria-label={`${rating} out of 5 stars`}>
+    <div className="flex gap-0.5">
       {Array.from({ length: 5 }).map((_, i) => (
         <span key={i} className={i < rating ? 'text-brand-accent text-lg' : 'text-brand-rule text-lg'}>★</span>
       ))}
@@ -18,7 +16,6 @@ function Stars({ rating }) {
   );
 }
 
-// LinkedIn icon SVG
 function LinkedInIcon() {
   return (
     <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
@@ -33,10 +30,7 @@ export default function Testimonials() {
   const active = testimonials[activeIndex];
 
   return (
-    <section className="section-pad bg-brand-slate relative overflow-hidden">
-      {/* Background line */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-px h-full bg-gradient-to-b from-transparent via-brand-accent/20 to-transparent" />
-
+    <section className="section-pad bg-brand-bg relative overflow-hidden">
       <div className="section-wrapper relative z-10">
         <SectionHeading
           eyebrow="Client Voices"
@@ -45,7 +39,7 @@ export default function Testimonials() {
           center
         />
 
-        {/* ── FEATURED TESTIMONIAL ── */}
+        {/* Featured testimonial */}
         <div className="max-w-4xl mx-auto">
           <AnimatePresence mode="wait">
             <motion.div
@@ -54,59 +48,43 @@ export default function Testimonials() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.4 }}
-              className="bg-brand-steel border border-brand-rule p-8 lg:p-12 relative overflow-hidden"
+              className="bg-white border border-brand-rule shadow-card-lg p-8 lg:p-12 relative overflow-hidden"
             >
-              {/* Decorative quote mark */}
-              <div className="absolute top-4 right-6 font-display text-9xl text-brand-accent/8 select-none leading-none pointer-events-none">
+              {/* Decorative quote */}
+              <div className="absolute top-4 right-6 font-display text-9xl text-brand-accent/10 select-none leading-none pointer-events-none">
                 "
               </div>
 
-              {/* Stars */}
               <Stars rating={active.rating} />
 
-              {/* Testimonial text */}
-              <blockquote className="font-display text-xl lg:text-2xl text-brand-mist italic leading-relaxed mt-6 mb-8">
+              <blockquote className="font-display text-xl lg:text-2xl text-brand-ink italic leading-snug mt-6 mb-8">
                 "{active.text}"
               </blockquote>
 
-              {/* Client info */}
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6 pt-6 border-t border-brand-rule">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-5 pt-6 border-t border-brand-rule">
                 <div className="flex items-center gap-4">
-                  {/* Avatar */}
-                  <div className="w-14 h-14 rounded-full bg-brand-ink border-2 border-brand-accent/40 overflow-hidden flex-shrink-0 flex items-center justify-center">
-                    <span className="font-display text-xl text-brand-accent">
-                      {active.name.charAt(0)}
-                    </span>
+                  <div className="w-12 h-12 rounded-full bg-brand-bg-alt border-2 border-brand-accent/30 flex items-center justify-center flex-shrink-0 overflow-hidden">
+                    <span className="font-display text-lg text-brand-accent">{active.name.charAt(0)}</span>
                   </div>
                   <div>
-                    <p className="font-body font-semibold text-brand-mist">{active.name}</p>
-                    <p className="font-body text-xs text-brand-ghost mt-0.5">{active.role}</p>
-                    <p className="font-body text-xs text-brand-accent/70 mt-0.5">{active.country}</p>
+                    <p className="font-body font-semibold text-brand-ink text-sm">{active.name}</p>
+                    <p className="font-body text-xs text-brand-muted mt-0.5">{active.role}</p>
+                    <p className="font-body text-xs text-brand-accent/80 mt-0.5">{active.country}</p>
                   </div>
                 </div>
 
-                {/* Action buttons — only for Joylyn Rosa */}
                 {(active.linkedinUrl || active.websiteUrl) && (
                   <div className="flex flex-wrap gap-3">
                     {active.linkedinUrl && (
-                      <a
-                        href={active.linkedinUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-2 border border-[#0077B5] text-[#0077B5] hover:bg-[#0077B5] hover:text-white px-4 py-2 text-xs font-body font-semibold transition-all duration-200"
-                      >
-                        <LinkedInIcon />
-                        View LinkedIn Recommendation
+                      <a href={active.linkedinUrl} target="_blank" rel="noopener noreferrer"
+                        className="inline-flex items-center gap-2 border border-[#0077B5] text-[#0077B5] hover:bg-[#0077B5] hover:text-white px-4 py-2 text-xs font-body font-semibold transition-all duration-200">
+                        <LinkedInIcon /> View Recommendation
                       </a>
                     )}
                     {active.websiteUrl && (
-                      <a
-                        href={active.websiteUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="btn-secondary text-xs py-2 px-4"
-                      >
-                        Visit Client Website →
+                      <a href={active.websiteUrl} target="_blank" rel="noopener noreferrer"
+                        className="btn-secondary text-xs py-2 px-4">
+                        Visit Website →
                       </a>
                     )}
                   </div>
@@ -118,51 +96,38 @@ export default function Testimonials() {
           {/* Navigation dots */}
           <div className="flex justify-center gap-3 mt-8">
             {testimonials.map((_, i) => (
-              <button
-                key={i}
-                onClick={() => setActiveIndex(i)}
-                aria-label={`Testimonial ${i + 1}`}
-                className={`transition-all duration-300 ${
-                  i === activeIndex
-                    ? 'w-8 h-1.5 bg-brand-accent'
-                    : 'w-2 h-1.5 bg-brand-rule hover:bg-brand-ghost'
-                }`}
+              <button key={i} onClick={() => setActiveIndex(i)}
+                className={`transition-all duration-300 h-1.5 ${i === activeIndex ? 'w-8 bg-brand-accent' : 'w-2 bg-brand-rule hover:bg-brand-muted'}`}
               />
             ))}
           </div>
         </div>
 
-        {/* ── ALL TESTIMONIAL CARDS ── */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-16">
+        {/* All testimonial cards */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-12">
           {testimonials.map((t, i) => (
             <AnimatedSection key={t.id} delay={i * 100}>
-              <button
-                onClick={() => setActiveIndex(i)}
-                className={`w-full text-left p-6 border transition-all duration-200 ${
+              <button onClick={() => setActiveIndex(i)}
+                className={`w-full text-left p-5 border transition-all duration-200 ${
                   i === activeIndex
-                    ? 'border-brand-accent/50 bg-brand-steel'
-                    : 'border-brand-rule bg-brand-ink hover:border-brand-accent/30'
-                }`}
-              >
-                <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 rounded-full bg-brand-steel border border-brand-accent/30 flex items-center justify-center flex-shrink-0">
-                    <span className="font-display text-lg text-brand-accent">{t.name.charAt(0)}</span>
+                    ? 'border-brand-accent/50 bg-white shadow-card'
+                    : 'border-brand-rule bg-brand-bg hover:border-brand-accent/30 hover:bg-white'
+                }`}>
+                <div className="flex items-start gap-3">
+                  <div className="w-10 h-10 rounded-full bg-brand-bg-alt border border-brand-rule flex items-center justify-center flex-shrink-0">
+                    <span className="font-display text-sm text-brand-accent">{t.name.charAt(0)}</span>
                   </div>
                   <div className="flex-grow min-w-0">
                     <div className="flex items-center justify-between gap-2">
-                      <p className="font-body text-sm font-semibold text-brand-mist">{t.name}</p>
+                      <p className="font-body text-sm font-semibold text-brand-ink">{t.name}</p>
                       <Stars rating={t.rating} />
                     </div>
-                    <p className="font-body text-xs text-brand-ghost mt-0.5">{t.role}</p>
-                    <p className="font-body text-xs text-brand-ghost/60 mt-0.5">{t.country}</p>
-                    <p className="font-body text-xs text-brand-ghost leading-relaxed mt-3 line-clamp-3 italic">
-                      "{t.text}"
-                    </p>
-                    {/* Real client badge */}
+                    <p className="font-body text-xs text-brand-muted mt-0.5">{t.role}</p>
+                    <p className="font-body text-xs text-brand-muted/70 leading-relaxed mt-2 line-clamp-2 italic">"{t.text}"</p>
                     {t.linkedinUrl && (
-                      <div className="mt-3 inline-flex items-center gap-1.5 bg-green-500/10 border border-green-500/30 px-2.5 py-1">
-                        <div className="w-1.5 h-1.5 rounded-full bg-green-400" />
-                        <span className="font-body text-[10px] text-green-400 font-semibold uppercase tracking-widest">Verified Client</span>
+                      <div className="mt-2 inline-flex items-center gap-1.5 bg-green-50 border border-green-200 px-2 py-0.5">
+                        <div className="w-1.5 h-1.5 rounded-full bg-green-500" />
+                        <span className="font-body text-[10px] text-green-700 font-semibold uppercase tracking-widest">Verified</span>
                       </div>
                     )}
                   </div>
@@ -171,7 +136,6 @@ export default function Testimonials() {
             </AnimatedSection>
           ))}
         </div>
-
       </div>
     </section>
   );
