@@ -17,8 +17,12 @@ module.exports = {
           accent:   '#C8A96E', // Warm gold — primary accent (CTAs, highlights)
           'accent-light': '#E8C98A', // Lighter gold for hover states
           mist:     '#E8EDF4', // Near-white for body text on dark bg
-          ghost:    '#8B97A8', // Muted text / labels
+          ghost:    '#8B97A8', // Muted text / labels (on dark backgrounds)
           rule:     '#2C3D52', // Subtle dividers
+          // ── ADDED — were missing, causing invisible/uncolored text ──
+          bg:       '#F8F4EE', // Page background (cream) — matches theme-color meta tag
+          muted:    '#5B6472', // Muted text on LIGHT backgrounds (e.g. navbar inactive links)
+          whatsapp: '#25D366', // WhatsApp brand green for the CTA button
         },
       },
       // ── TYPOGRAPHY ────────────────────────────────────────────────
