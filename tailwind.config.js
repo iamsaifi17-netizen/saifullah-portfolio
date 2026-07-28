@@ -21,9 +21,17 @@ module.exports = {
           rule:     '#2C3D52', // Subtle dividers
           // ── ADDED — were missing, causing invisible/uncolored text ──
           bg:       '#F8F4EE', // Page background (cream) — matches theme-color meta tag
+          'bg-alt': '#EFEAE0', // Slightly darker cream — image containers, avatar circles
           muted:    '#5B6472', // Muted text on LIGHT backgrounds (e.g. navbar inactive links)
           whatsapp: '#25D366', // WhatsApp brand green for the CTA button
         },
+      },
+      // ── SHADOWS — were also missing, cards/buttons had no shadow at all ──
+      boxShadow: {
+        card:      '0 2px 12px rgba(13,17,23,0.06)',
+        'card-lg': '0 8px 32px rgba(13,17,23,0.10)',
+        gold:      '0 4px 20px rgba(200,169,110,0.35)',
+        wa:        '0 4px 20px rgba(37,211,102,0.35)',
       },
       // ── TYPOGRAPHY ────────────────────────────────────────────────
       fontFamily: {
