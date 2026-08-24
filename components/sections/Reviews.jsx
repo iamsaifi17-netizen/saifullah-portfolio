@@ -1,13 +1,33 @@
 // components/sections/Reviews.jsx
-// Shows approved reviews from DB + Leave a Review form
+// Public reviews section — shows approved reviews + leave a review form
+// Uses dark theme: brand-steel, brand-slate, brand-ink, brand-mist, brand-ghost, brand-rule, brand-accent
 
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import SectionHeading from '../ui/SectionHeading';
 import AnimatedSection from '../ui/AnimatedSection';
-import { StarRating } from '../ui/StarRating';
 
+// ── STAR DISPLAY ──────────────────────────────────────────────────────────────
+function Stars({ rating, interactive = false, onChange }) {
+  const [hovered, setHovered] = useState(0);
+  const shown = interactive ? (hovered || rating) : rating;
+  return (
+    <div className="flex gap-0.5" aria-label={`${rating} out of 5 stars`}>
+      {[1,2,3,4,5].map(n => (
+        <span
+          key={n}
+          className={`text-lg transition-colors ${n <= shown ? 'text-brand-accent' : 'text-brand-rule'} ${interactive ? 'cursor-pointer hover:scale-110 transition-transform' : ''}`}
+          onClick={interactive ? () => onChange?.(n) : undefined}
+          onMouseEnter={interactive ? () => setHovered(n) : undefined}
+          onMouseLeave={interactive ? () => setHovered(0) : undefined}
+        >★</span>
+      ))}
+    </div>
+  );
+}
+
+// ── REVIEW CARD ───────────────────────────────────────────────────────────────
 function ReviewCard({ review, index }) {
   const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.1 });
   return (
@@ -17,10 +37,11 @@ function ReviewCard({ review, index }) {
       animate={inView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.5, delay: index * 0.08 }}
       className="bg-brand-steel border border-brand-rule p-6 flex flex-col gap-4
-                 hover:border-brand-accent/30 hover:-translate-y-1 hover:shadow-[0_8px_30px_rgba(200,169,110,0.08)]
+                 hover:border-brand-accent/30 hover:-translate-y-1
+                 hover:shadow-[0_8px_30px_rgba(200,169,110,0.08)]
                  transition-all duration-300"
     >
-      <StarRating rating={review.rating} animate={true} />
+      <Stars rating={review.rating} />
       <p className="text-brand-ghost text-sm leading-relaxed flex-grow italic">
         "{review.comment}"
       </p>
@@ -33,13 +54,13 @@ function ReviewCard({ review, index }) {
         <div className="flex-grow min-w-0">
           <p className="font-body text-sm font-semibold text-brand-mist truncate">{review.name}</p>
           {review.project_name && (
-            <p className="font-body text-xs text-brand-ghost/70">Project: {review.project_name}</p>
+            <p className="font-body text-xs text-brand-ghost/70 mt-0.5">Project: {review.project_name}</p>
           )}
         </div>
         {review.linkedin && (
           <a href={review.linkedin} target="_blank" rel="noopener noreferrer"
             className="text-brand-ghost hover:text-brand-accent transition-colors flex-shrink-0"
-            aria-label="LinkedIn">
+            aria-label="LinkedIn profile">
             <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
               <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
             </svg>
@@ -50,13 +71,14 @@ function ReviewCard({ review, index }) {
   );
 }
 
+// ── REVIEW FORM ───────────────────────────────────────────────────────────────
 function ReviewForm() {
-  const [form,    setForm]    = useState({ name:'', email:'', rating:5, comment:'', linkedin:'', project_name:'' });
+  const [form, setForm] = useState({ name:'', email:'', rating:5, comment:'', linkedin:'', project_name:'' });
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
-  const [error,   setError]   = useState('');
+  const [error, setError] = useState('');
 
-  const h = (k) => (e) => setForm(f => ({ ...f, [k]: e.target.value }));
+  const h = k => e => setForm(f => ({ ...f, [k]: e.target.value }));
 
   const submit = async (e) => {
     e.preventDefault();
@@ -100,13 +122,7 @@ function ReviewForm() {
 
       <div>
         <label className="block font-body text-xs text-brand-ghost uppercase tracking-widest mb-3">Your Rating *</label>
-        <StarRating
-          rating={form.rating}
-          animate={false}
-          size="lg"
-          interactive={true}
-          onChange={(v) => setForm(f => ({ ...f, rating: v }))}
-        />
+        <Stars rating={form.rating} interactive={true} onChange={v => setForm(f => ({...f, rating: v}))} />
       </div>
 
       <div>
@@ -119,7 +135,8 @@ function ReviewForm() {
           Your Review * <span className="text-brand-ghost/50 normal-case font-normal">(min 20 characters)</span>
         </label>
         <textarea required rows={5} value={form.comment} onChange={h('comment')}
-          placeholder="Share your experience working with Muhammad..." className="textarea-field" />
+          placeholder="Share your experience working with Muhammad..."
+          className="textarea-field" />
       </div>
 
       <div>
@@ -127,7 +144,9 @@ function ReviewForm() {
         <input type="url" value={form.linkedin} onChange={h('linkedin')} placeholder="https://linkedin.com/in/your-profile" className="input-field" />
       </div>
 
-      {error && <p className="text-red-400 text-sm bg-red-400/10 border border-red-400/20 px-4 py-3">{error}</p>}
+      {error && (
+        <p className="text-red-400 text-sm bg-red-400/10 border border-red-400/20 px-4 py-3">{error}</p>
+      )}
 
       <button type="submit" disabled={loading}
         className="btn-primary w-full justify-center text-base py-4 disabled:opacity-60 disabled:cursor-not-allowed">
@@ -140,9 +159,10 @@ function ReviewForm() {
   );
 }
 
+// ── MAIN SECTION ──────────────────────────────────────────────────────────────
 export default function Reviews() {
-  const [reviews,  setReviews]  = useState([]);
-  const [loading,  setLoading]  = useState(true);
+  const [reviews, setReviews] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [showForm, setShowForm] = useState(false);
 
   useEffect(() => {
@@ -167,12 +187,12 @@ export default function Reviews() {
           center
         />
 
-        {/* Average rating bar */}
+        {/* Average rating stats */}
         {reviews.length > 0 && (
           <AnimatedSection className="flex items-center justify-center gap-10 mb-12">
             <div className="text-center">
               <p className="font-display text-5xl text-brand-accent">{avg}</p>
-              <StarRating rating={Math.round(Number(avg))} animate={false} />
+              <Stars rating={Math.round(Number(avg))} />
               <p className="font-body text-xs text-brand-ghost mt-1">Average Rating</p>
             </div>
             <div className="w-px h-14 bg-brand-rule" />
@@ -204,7 +224,7 @@ export default function Reviews() {
         {/* Leave a review CTA */}
         <AnimatedSection>
           <div className="border border-brand-rule bg-brand-slate p-8 lg:p-10">
-            <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6 mb-6">
+            <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6 mb-0">
               <div>
                 <p className="eyebrow mb-2">Share Your Experience</p>
                 <h3 className="font-display text-2xl text-brand-mist mb-2">Worked With Me? Leave a Review</h3>
@@ -225,7 +245,7 @@ export default function Reviews() {
                   initial={{ opacity: 0, height: 0 }}
                   animate={{ opacity: 1, height: 'auto' }}
                   exit={{ opacity: 0, height: 0 }}
-                  className="overflow-hidden border-t border-brand-rule pt-8"
+                  className="overflow-hidden border-t border-brand-rule pt-8 mt-8"
                 >
                   <ReviewForm />
                 </motion.div>

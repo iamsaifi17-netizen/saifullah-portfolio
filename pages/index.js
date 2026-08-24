@@ -5,6 +5,7 @@ import Link from 'next/link';
 import Layout from '../components/layout/Layout';
 import Hero from '../components/sections/Hero';
 import CTABanner from '../components/sections/CTABanner';
+import Reviews from '../components/sections/Reviews';
 import AnimatedSection from '../components/ui/AnimatedSection';
 import SectionHeading from '../components/ui/SectionHeading';
 import { SITE_CONFIG } from '../lib/config';
@@ -133,6 +134,7 @@ export default function HomePage() {
         <PortfolioPreview />
         <TestimonialPreview />
         <WhatsAppMidCTA />
+        <Reviews />
         <CTABanner />
       </Layout>
     </>

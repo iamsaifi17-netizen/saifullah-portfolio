@@ -1,0 +1,18 @@
+// pages/api/admin/login.js
+import { checkPassword, setAuthCookie, clearAuthCookie } from '../../../lib/adminAuth';
+
+export default function handler(req, res) {
+  if (req.method === 'POST') {
+    const { password } = req.body;
+    if (checkPassword(password)) {
+      setAuthCookie(res);
+      return res.status(200).json({ success: true });
+    }
+    return res.status(401).json({ error: 'Invalid password' });
+  }
+  if (req.method === 'DELETE') {
+    clearAuthCookie(res);
+    return res.status(200).json({ success: true });
+  }
+  return res.status(405).json({ error: 'Method not allowed' });
+}
